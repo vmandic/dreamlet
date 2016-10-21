@@ -1,0 +1,24 @@
+{
+  "name": "dreamlet-scraper",
+  "version": "1.0.0",
+  "description": "Aggregator for the initial datasource of dream terms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vmandic/dreamlet.git"
+  },
+  "keywords": [
+    "dreamlet",
+    "scraper",
+    "dreams"
+  ],
+  "author": "Vedran Mandić (mandic.vedran@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vmandic/dreamlet/issues"
+  },
+  "homepage": "https://github.com/vmandic/dreamlet#readme"
+}
