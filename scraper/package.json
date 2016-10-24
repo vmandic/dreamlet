@@ -16,6 +16,11 @@
     "dreams"
   ],
   "author": "Vedran Mandić (mandic.vedran@gmail.com)",
+   "dependencies" : {
+    "express"    : "latest",
+    "request"    : "latest",
+    "cheerio"    : "latest"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/vmandic/dreamlet/issues"

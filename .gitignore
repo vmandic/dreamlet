@@ -2,6 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+node_modules
 /dreamlet/packages
 /dreamlet/dreamlet.WebService.Tests/bin/Debug
 /dreamlet/dreamlet.WebService.Tests/obj/Debug
