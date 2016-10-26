@@ -17,10 +17,12 @@
     "dreams"
   ],
   "author": "Vedran Mandić (mandic.vedran@gmail.com)",
-   "dependencies" : {
-    "express"    : "latest",
-    "request"    : "latest",
-    "cheerio"    : "latest"
+  "dependencies": {
+    "atob": "^2.0.3",
+    "cheerio": "latest",
+    "express": "latest",
+    "request": "latest",
+    "simple-rate-limiter": "^0.2.3"
   },
   "license": "ISC",
   "bugs": {
