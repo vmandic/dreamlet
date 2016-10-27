@@ -22,11 +22,13 @@ var scrape1 = function () {
         });
     });
 
+    requests[0]();
+
     // initiate all requests
-    requests.forEach(function(req, index){ 
-        req();
-        console.log("Launching req id: " + (index+1));
-    });
+    // requests.forEach(function(req, index){ 
+    //     req();
+    //     console.log("Launching req id: " + (index+1));
+    // });
 };
 
 var processScrape1 = function (baseUrl, letter, err, resp, html) {
@@ -47,7 +49,6 @@ var processScrape1 = function (baseUrl, letter, err, resp, html) {
 
 app.get('/', function (req, res) {
     scrape1();
-    return null;
 });
 
 app.listen('8081');
