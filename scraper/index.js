@@ -8,7 +8,7 @@ var express = require('express'),
     cheerio = require('cheerio'),
     app = express();
 
-var limitedRequest = limit(request).to(2).per(5000);
+var limitedRequest = limit(request).to(1).per(2500);
 
 var scrape1 = function () {
     var baseUrl = "{0}/dreamdictionary/{1}_all.htm".format(atob("aHR0cDovL3d3dy5kcmVhbW1vb2RzLmNvbQ=="));
@@ -22,13 +22,35 @@ var scrape1 = function () {
         });
     });
 
-    requests[0]();
+    //requests[0]();
 
-    // initiate all requests
-    // requests.forEach(function(req, index){ 
-    //     req();
-    //     console.log("Launching req id: " + (index+1));
-    // });
+    //initiate all requests
+    requests.forEach(function(req, index){ 
+        req();
+        console.log("Launching req id: " + (index+1));
+    });
+ 
+    // how to scrape scrape1 into array of terms and explanations
+ 	// var terms = [];
+	// var currentTerm = "";
+
+	// var data = $("table[width=950] td[width=750]:first-child > p").map(function(index, el){ 
+	// 	if(el.innerHTML.indexOf("<b>") > -1 || el.innerHTML.indexOf("<strong>") > -1) 
+	// 		return "TERM - " + $(el).text(); 
+
+	// 	return $(el).text();
+	// });
+
+	// data.toArray().forEach(function(e, i) {
+	// 	if(e.indexOf("TERM - ") > -1) {
+	// 		var termName = e.split("TERM - ")[1];
+	// 		currentTerm = { name: termName, explanations: [] };
+
+	// 		terms.push(currentTerm);
+	// 	} else {
+	// 		currentTerm.explanations.push(e.replace("\r\n", " ").replace("\r", " ").replace("\n", " ").trim());
+	// 	}
+	// });
 };
 
 var processScrape1 = function (baseUrl, letter, err, resp, html) {
