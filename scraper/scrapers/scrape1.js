@@ -84,7 +84,7 @@ var _saveToJson = function ($, callback) {
     });
 
     callback(null, terms.filter(function (t) {
-        return t.explanations.some(function (_t) {
+        return t.name.trim() !== "" && t.explanations.some(function (_t) {
             return _t.indexOf("function") === -1;
         });
     }));
