@@ -1,18 +1,10 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿#######################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio. ... NOT
+#######################################################################################
 
 node_modules
 dl
 /dreamlet/packages
-/dreamlet/dreamlet.WebService.Tests/bin/Debug
-/dreamlet/dreamlet.WebService.Tests/obj/Debug
-/dreamlet/dreamlet.WebService/obj/Debug
-/dreamlet/dreamlet.WebService/bin
-/dreamlet/dreamlet.WebAppDtoModels/obj/Debug
-/dreamlet/dreamlet.WebApp/obj/Debug
-/dreamlet/dreamlet.WebApp/bin
-/dreamlet/dreamlet.Utilities/obj/Debug
-/dreamlet/dreamlet.DatabaseEntites/obj/Debug
-/dreamlet/dreamlet.BusinessLogicLayer/obj/Debug
-/dreamlet/dreamlet.DataAccessLayer/obj/Debug
+/dreamlet/*/bin
+/dreamlet/*/obj
+/notes

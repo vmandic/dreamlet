@@ -7,8 +7,8 @@
     <ProjectGuid>{D1F4D119-E6E1-4D0A-821A-8254F9E98CFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>dreamlet.WebAppDtoModels</RootNamespace>
-    <AssemblyName>dreamlet.WebAppDtoModels</AssemblyName>
+    <RootNamespace>dreamlet.Models</RootNamespace>
+    <AssemblyName>dreamlet.Models</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -40,8 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseMongoEntity.cs" />
+    <Compile Include="Base\IBaseMongoEntity.cs" />
+    <Compile Include="Models\Embedded\DreamExplanation.cs" />
+    <Compile Include="Models\DreamTag.cs" />
+    <Compile Include="Models\DreamTerm.cs" />
+    <Compile Include="Models\DreamTermTag.cs" />
+    <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\Embedded\Meta.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

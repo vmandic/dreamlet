@@ -103,9 +103,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\dreamlet.WebService\dreamlet.WebAppService.csproj">
+    <ProjectReference Include="..\dreamlet.WebService\dreamlet.WebService.csproj">
       <Project>{F3B8C683-70D4-4BCD-86D5-616452DBD529}</Project>
-      <Name>dreamlet.WebAppService</Name>
+      <Name>dreamlet.WebService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
