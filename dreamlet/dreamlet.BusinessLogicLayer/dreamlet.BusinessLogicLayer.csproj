@@ -47,6 +47,24 @@
   <ItemGroup>
     <Folder Include="Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dreamlet.DataAccessLayer\dreamlet.DataAccessLayer.csproj">
+      <Project>{78555352-e0ec-4532-abd0-88ff29f5782e}</Project>
+      <Name>dreamlet.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dreamlet.DatabaseEntites\dreamlet.DatabaseEntites.csproj">
+      <Project>{7d5b4d4e-8e24-47a5-a7fe-a5159a57892b}</Project>
+      <Name>dreamlet.DatabaseEntites</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dreamlet.Models\dreamlet.Models.csproj">
+      <Project>{d1f4d119-e6e1-4d0a-821a-8254f9e98cfc}</Project>
+      <Name>dreamlet.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dreamlet.Utilities\dreamlet.Utilities.csproj">
+      <Project>{87cd6fba-6917-4a06-8988-77086e967790}</Project>
+      <Name>dreamlet.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

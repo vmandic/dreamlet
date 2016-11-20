@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using dreamlet.DataAccessLayer.MongoDbContext;
+using dreamlet.DataAccessLayer.Repository;
+using dreamlet.DatabaseEntites.Base;
 
 namespace dreamlet.DataAccessLayer.UnitOfWork
 {
-    class IUnitOfWork
+    public interface IUnitOfWork
     {
+        IMongoContext Context { get; }
+        void Dispose();
+        void Dispose(bool disposing);
+        IRepository<TDocument, TKey> Repository<TDocument, TKey>() where TDocument : IBaseMongoEntity<TKey>;
     }
 }

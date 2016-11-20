@@ -1,12 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
+using System.Runtime.Serialization;
 
 namespace dreamlet.DatabaseEntites.Base
 {
-    class BaseMongoEntity
+    [DataContract]
+    [Serializable]
+    [BsonIgnoreExtraElements(Inherited = true)]
+    public class BaseMongoEntity : BsonDocument, IBaseMongoEntity<string>
     {
+        public ObjectId ObjectId
+        {
+            get
+            {
+                return new ObjectId(Id);
+            }
+        }
+
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
     }
 }
