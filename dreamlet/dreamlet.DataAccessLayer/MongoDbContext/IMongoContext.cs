@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace dreamlet.DataAccessLayer.MongoDbContext
 {
-    public interface IMongoContext : IDisposable
+    public interface IMongoContext
     {
         IMongoCollection<TDocument> Collection<TDocument>();
-        //int SaveChanges();
+
+        IMongoDatabase Database { get; }
+
+        IMongoClient Client { get; }
     }
 }

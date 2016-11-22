@@ -1,4 +1,4 @@
-﻿using dreamlet.DataAccessLayer.UnitOfWork;
+﻿using dreamlet.DataAccessLayer.MongoDbContext;
 using dreamlet.DatabaseEntites.Base;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -17,9 +17,9 @@ namespace dreamlet.DataAccessLayer.Repository
         private IMongoCollection<TDocument> _collection;
         private bool _Compare(TKey a, TKey b) => EqualityComparer<TKey>.Default.Equals(a, b);
 
-        public GenericMongoRepository(IUnitOfWork uow)
+        public GenericMongoRepository(IMongoContext context)
         {
-            this._collection = uow.Context.Collection<TDocument>();
+            this._collection = context.Collection<TDocument>();
         }
 
         /// <summary>
