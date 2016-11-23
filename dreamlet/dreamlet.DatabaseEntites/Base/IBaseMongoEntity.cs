@@ -18,7 +18,6 @@ namespace dreamlet.DatabaseEntites.Base
         [DataMember]
         TKey Id { get; set; }
 
-        [BsonIgnore]
-        ObjectId ObjectId { get; }
+        ObjectId GetObjectId();
     }
 }

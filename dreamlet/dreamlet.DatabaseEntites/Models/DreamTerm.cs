@@ -1,12 +1,16 @@
-﻿using System;
+﻿using dreamlet.DatabaseEntites.Base;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace dreamlet.DatabaseEntites.Models
 {
-    class DreamTerm
+    public class DreamTerm : BaseMongoEntity
     {
+        public DreamTerm()
+        {
+            this.Explanations = new List<DreamExplanation>();
+        }
+
+        public string Term { get; set; }
+        public IEnumerable<DreamExplanation> Explanations { get; set; }
     }
 }

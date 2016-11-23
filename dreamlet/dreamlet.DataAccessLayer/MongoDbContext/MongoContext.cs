@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using System.Linq;
 
 namespace dreamlet.DataAccessLayer.MongoDbContext
 {
@@ -15,17 +16,17 @@ namespace dreamlet.DataAccessLayer.MongoDbContext
 
         }
 
-        public MongoContext(MongoClientSettings settings, string databaseName)
+        public MongoContext(MongoClientSettings settings)
         {
             _clientSettings = settings;
-            _databaseName = databaseName;
+            _databaseName = settings.Credentials.First().Source;
         }
 
         public IMongoDatabase Database
         {
             get
             {
-                return _database ?? (_database = _client.GetDatabase(_databaseName));
+                return _database ?? (_database = Client.GetDatabase(_databaseName));
             }
         }
 
@@ -40,7 +41,7 @@ namespace dreamlet.DataAccessLayer.MongoDbContext
         public IMongoCollection<TDocument> Collection<TDocument>()
         {
             string collectionName = typeof(TDocument).Name;
-            return _database.GetCollection<TDocument>(collectionName);
+            return Database.GetCollection<TDocument>(collectionName);
         }
     }
 }

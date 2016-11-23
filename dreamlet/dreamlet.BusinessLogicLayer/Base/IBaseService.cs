@@ -1,14 +1,13 @@
 ﻿using dreamlet.DataAccessLayer.MongoDbContext;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using dreamlet.DataAccessLayer.Repository;
+using dreamlet.DatabaseEntites.Base;
 
 namespace dreamlet.BusinessLogicLayer.Base
 {
     public interface IBaseService
     {
-        public IMongoContext MongoDatabaseContext { get; }
+        IMongoContext MongoDatabaseContext { get; }
+
+        IRepository<TDocument, string> Repository<TDocument>() where TDocument : IBaseMongoEntity<string>;
     }
 }

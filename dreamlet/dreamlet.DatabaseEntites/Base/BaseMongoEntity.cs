@@ -8,17 +8,13 @@ namespace dreamlet.DatabaseEntites.Base
     [DataContract]
     [Serializable]
     [BsonIgnoreExtraElements(Inherited = true)]
-    public class BaseMongoEntity : BsonDocument, IBaseMongoEntity<string>
+    public class BaseMongoEntity : IBaseMongoEntity<string>
     {
-        public ObjectId ObjectId
-        {
-            get
-            {
-                return new ObjectId(Id);
-            }
-        }
+        public ObjectId GetObjectId() 
+            => !String.IsNullOrWhiteSpace(Id) ? new ObjectId(Id) : MongoDB.Bson.ObjectId.Empty;
+            
 
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
     }
 }
