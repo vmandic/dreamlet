@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using dreamlet.DatabaseEntites.Base;
+using MongoDB.Bson;
 
 namespace dreamlet.DatabaseEntites.Models
 {
-    class DreamExplanation
+    public class DreamExplanation : BaseMongoEntity
     {
+        public DreamExplanation()
+        {
+            Id = ObjectId.GenerateNewId().ToString();
+        }
+
+        public string Explanation { get; set; }
     }
 }
