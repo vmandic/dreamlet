@@ -4,7 +4,7 @@ using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Configuration;
 using dreamlet.Generic.Tests.Services;
-using dreamlet.DatabaseEntites.Models;
+using dreamlet.DataAccessLayer.Entities.Models;
 using MongoDB.Bson;
 
 namespace dreamlet.Generic.Tests
@@ -66,11 +66,41 @@ namespace dreamlet.Generic.Tests
         public void TestMongoRepo()
         {
             var service = new GenericService();
-            var repo = service.Repository<DreamTerm>();
+            var dreamTermRepo = service.Repository<DreamTerm>();
+            var userRepo = service.Repository<User>();
+            var langRepo = service.Repository<Language>();
+
+            var utcnow = DateTime.UtcNow;
+            var usrid = ObjectId.GenerateNewId(utcnow).ToString();
+
+            var usr1 = new User()
+            {
+                Id = usrid,
+                Email = "test.test@test.com",
+                PasswordHash = "123456",
+                Role = "admin"
+            };
+
+            userRepo.Add(usr1);
+
+            var lang1 = new Language()
+            {
+                Code = "HR-HR",
+                Meta = new Meta()
+                {
+                    CreatedAt = utcnow,
+                    UpdatedAt = utcnow,
+                    CreatedByUserId = usrid,
+                    UpdatedByUserId = usrid
+                }
+            };
+
+            langRepo.Add(lang1);
 
             var d = new DreamTerm()
             {
                 Term = "Car",
+                LanguageId = lang1.Id,
                 Explanations = new List<DreamExplanation>()
                 {
                     new DreamExplanation() { Explanation = "You are awesome." },
@@ -78,9 +108,13 @@ namespace dreamlet.Generic.Tests
                 }
             };
 
-            repo.Add(d);
+            var lang2 = d.Language(service.Repository<Language>);
 
-            Assert.IsTrue(repo.Count() == 1);
+            Assert.AreEqual(lang1.Id, lang2.Id);
+
+            dreamTermRepo.Add(d);
+
+            Assert.IsTrue(dreamTermRepo.Count() == 1);
         }
     }
 }

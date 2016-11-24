@@ -1,6 +1,6 @@
 ﻿using dreamlet.DataAccessLayer.MongoDbContext;
 using dreamlet.DataAccessLayer.Repository;
-using dreamlet.DatabaseEntites.Base;
+using dreamlet.DataAccessLayer.Entities.Base;
 
 namespace dreamlet.BusinessLogicLayer.Base
 {
@@ -8,6 +8,9 @@ namespace dreamlet.BusinessLogicLayer.Base
     {
         IMongoContext MongoDatabaseContext { get; }
 
-        IRepository<TDocument, string> Repository<TDocument>() where TDocument : IBaseMongoEntity<string>;
+        /// <summary>
+        /// Resolves a string Id based cached repository instance which exposes the MongoDatabase and MongoCollection.
+        /// </summary>
+        IRepository<TDocument> Repository<TDocument>() where TDocument : IBaseMongoEntity;
     }
 }

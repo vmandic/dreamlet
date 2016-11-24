@@ -1,5 +1,5 @@
 ﻿using dreamlet.DataAccessLayer.MongoDbContext;
-using dreamlet.DatabaseEntites.Base;
+using dreamlet.DataAccessLayer.Entities.Base;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace dreamlet.DataAccessLayer.Repository
 {
-    public class GenericMongoRepository<TDocument, TKey> : IRepository<TDocument, TKey> where TDocument : IBaseMongoEntity<TKey>
+    public class GenericMongoRepository<TDocument, TKey> : IRepository<TDocument, TKey> where TDocument : IBaseMongoEntity<TKey> where TKey : class
     {
         /// <summary>
         /// MongoCollection field.
@@ -42,7 +42,7 @@ namespace dreamlet.DataAccessLayer.Repository
         /// <param name="id">The Id of the entity to retrieve.</param>
         /// <returns>The Entity T.</returns>
         public virtual TDocument GetById(TKey id)
-            => this._collection.Find(x => _Compare(x.Id, id)).FirstOrDefault();
+            => this._collection.Find(x => x.Id == id).FirstOrDefault();
         
         /// <summary>
         /// Adds the new entity in the repository.
@@ -158,5 +158,10 @@ namespace dreamlet.DataAccessLayer.Repository
             get { return this._collection.AsQueryable().Provider; }
         }
         #endregion
+    }
+
+    public class GenericMongoRepository<TDocument> : GenericMongoRepository<TDocument, string>, IRepository<TDocument> where TDocument : IBaseMongoEntity
+    {
+        public GenericMongoRepository(IMongoContext context) : base(context) { }
     }
 }

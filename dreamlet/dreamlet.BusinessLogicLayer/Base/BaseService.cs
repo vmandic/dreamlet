@@ -1,6 +1,6 @@
 ﻿using dreamlet.DataAccessLayer.MongoDbContext;
 using dreamlet.DataAccessLayer.Repository;
-using dreamlet.DatabaseEntites.Base;
+using dreamlet.DataAccessLayer.Entities.Base;
 using System.Collections.Generic;
 
 namespace dreamlet.BusinessLogicLayer.Base
@@ -19,7 +19,7 @@ namespace dreamlet.BusinessLogicLayer.Base
             }
         }
 
-        public IRepository<TDocument, string> Repository<TDocument>() where TDocument : IBaseMongoEntity<string>
+        public IRepository<TDocument> Repository<TDocument>() where TDocument : IBaseMongoEntity
         {
             lock (_locker)
             {
@@ -29,9 +29,9 @@ namespace dreamlet.BusinessLogicLayer.Base
                 var type = typeof(TDocument).Name;
 
                 if (!_repositories.ContainsKey(type))
-                    _repositories.Add(type, new GenericMongoRepository<TDocument, string>(MongoDatabaseContext));
+                    _repositories.Add(type, new GenericMongoRepository<TDocument>(MongoDatabaseContext));
 
-                return (IRepository<TDocument, string>)_repositories[type];
+                return (IRepository<TDocument>)_repositories[type];
             }
         }
 

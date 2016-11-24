@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +54,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entites\Base\BaseMongoEntity.cs" />
+    <Compile Include="Entites\Base\BaseMongoMetaEntity.cs" />
+    <Compile Include="Entites\Base\IBaseMongoEntity.cs" />
+    <Compile Include="Entites\Models\DreamTag.cs" />
+    <Compile Include="Entites\Models\DreamTerm.cs" />
+    <Compile Include="Entites\Models\DreamTermTag.cs" />
+    <Compile Include="Entites\Models\Embedded\DreamExplanation.cs" />
+    <Compile Include="Entites\Models\Embedded\Meta.cs" />
+    <Compile Include="Entites\Models\Language.cs" />
+    <Compile Include="Entites\Models\User.cs" />
     <Compile Include="MongoDbContext\DreamletMongoContext.cs" />
     <Compile Include="MongoDbContext\IMongoContext.cs" />
     <Compile Include="MongoDbContext\MongoContext.cs" />
@@ -64,10 +75,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\dreamlet.DatabaseEntites\dreamlet.DatabaseEntites.csproj">
-      <Project>{7d5b4d4e-8e24-47a5-a7fe-a5159a57892b}</Project>
-      <Name>dreamlet.DatabaseEntites</Name>
-    </ProjectReference>
     <ProjectReference Include="..\dreamlet.Utilities\dreamlet.Utilities.csproj">
       <Project>{87cd6fba-6917-4a06-8988-77086e967790}</Project>
       <Name>dreamlet.Utilities</Name>

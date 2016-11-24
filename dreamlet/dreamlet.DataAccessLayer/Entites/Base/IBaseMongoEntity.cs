@@ -1,10 +1,14 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
 using System.Runtime.Serialization;
 
-namespace dreamlet.DatabaseEntites.Base
+namespace dreamlet.DataAccessLayer.Entities.Base
 {
+    public interface IBaseMongoEntity : IBaseMongoEntity<string>
+    {
+        void SetObjectId(ObjectId id);
+    }
+
     /// <summary>
     /// Generic Entity interface.
     /// </summary>

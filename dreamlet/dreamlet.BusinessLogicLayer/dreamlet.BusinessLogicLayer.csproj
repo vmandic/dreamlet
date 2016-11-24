@@ -52,10 +52,6 @@
       <Project>{78555352-e0ec-4532-abd0-88ff29f5782e}</Project>
       <Name>dreamlet.DataAccessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\dreamlet.DatabaseEntites\dreamlet.DatabaseEntites.csproj">
-      <Project>{7d5b4d4e-8e24-47a5-a7fe-a5159a57892b}</Project>
-      <Name>dreamlet.DatabaseEntites</Name>
-    </ProjectReference>
     <ProjectReference Include="..\dreamlet.Models\dreamlet.Models.csproj">
       <Project>{d1f4d119-e6e1-4d0a-821a-8254f9e98cfc}</Project>
       <Name>dreamlet.Models</Name>

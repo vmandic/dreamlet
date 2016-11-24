@@ -1,7 +1,7 @@
-﻿using dreamlet.DatabaseEntites.Base;
+﻿using dreamlet.DataAccessLayer.Entities.Base;
 using MongoDB.Bson;
 
-namespace dreamlet.DatabaseEntites.Models
+namespace dreamlet.DataAccessLayer.Entities.Models
 {
     public class DreamExplanation : BaseMongoEntity
     {

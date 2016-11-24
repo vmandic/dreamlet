@@ -1,4 +1,4 @@
-﻿using dreamlet.DatabaseEntites.Base;
+﻿using dreamlet.DataAccessLayer.Entities.Base;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -89,4 +89,6 @@ namespace dreamlet.DataAccessLayer.Repository
         /// <returns>True when an entity matching the predicate exists, false otherwise.</returns>
         bool Exists(Expression<Func<TDocument, bool>> predicate);
     }
+
+    public interface IRepository<TDocument> : IRepository<TDocument, string> where TDocument : IBaseMongoEntity { }
 }

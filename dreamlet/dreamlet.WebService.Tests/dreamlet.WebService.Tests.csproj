@@ -111,10 +111,6 @@
       <Project>{78555352-e0ec-4532-abd0-88ff29f5782e}</Project>
       <Name>dreamlet.DataAccessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\dreamlet.DatabaseEntites\dreamlet.DatabaseEntites.csproj">
-      <Project>{7d5b4d4e-8e24-47a5-a7fe-a5159a57892b}</Project>
-      <Name>dreamlet.DatabaseEntites</Name>
-    </ProjectReference>
     <ProjectReference Include="..\dreamlet.Generic.Tests\dreamlet.Generic.Tests.csproj">
       <Project>{0a4c79b6-836f-4c88-9462-783ca8f767c1}</Project>
       <Name>dreamlet.Generic.Tests</Name>
