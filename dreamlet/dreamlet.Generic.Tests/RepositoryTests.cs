@@ -65,14 +65,15 @@ namespace dreamlet.Generic.Tests
         [TestMethod]
         public void TestMongoRepo()
         {
+            // PREPARE:
             var service = new GenericService();
             var dreamTermRepo = service.Repository<DreamTerm>();
             var userRepo = service.Repository<User>();
             var langRepo = service.Repository<Language>();
-
             var utcnow = DateTime.UtcNow;
             var usrid = ObjectId.GenerateNewId(utcnow).ToString();
 
+            // ACT:
             var usr1 = new User()
             {
                 Id = usrid,
@@ -109,11 +110,10 @@ namespace dreamlet.Generic.Tests
             };
 
             var lang2 = d.Language(service.Repository<Language>);
-
-            Assert.AreEqual(lang1.Id, lang2.Id);
-
             dreamTermRepo.Add(d);
 
+            // ASSERT:
+            Assert.AreEqual(lang1.Id, lang2.Id);
             Assert.IsTrue(dreamTermRepo.Count() == 1);
         }
     }
