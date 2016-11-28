@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace dreamlet.WebAppService.Models
+namespace dreamlet.WebService.Models
 {
     // Models used as parameters to AccountController actions.
 

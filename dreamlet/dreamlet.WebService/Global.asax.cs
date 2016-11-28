@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace dreamlet.WebAppService
+namespace dreamlet.WebService
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

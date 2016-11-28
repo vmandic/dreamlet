@@ -1,6 +1,6 @@
 using System;
 
-namespace dreamlet.WebAppService.Areas.HelpPage
+namespace dreamlet.WebService.Areas.HelpPage
 {
     /// <summary>
     /// This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.

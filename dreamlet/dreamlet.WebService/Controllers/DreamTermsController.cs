@@ -7,8 +7,7 @@ using System.Web.Http;
 
 namespace dreamlet.WebService.Controllers
 {
-    public class BaseController : ApiController
+    public class DreamTermsController : BaseController
     {
-       
     }
 }

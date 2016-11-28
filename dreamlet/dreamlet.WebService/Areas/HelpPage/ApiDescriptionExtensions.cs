@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace dreamlet.WebAppService.Areas.HelpPage
+namespace dreamlet.WebService.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

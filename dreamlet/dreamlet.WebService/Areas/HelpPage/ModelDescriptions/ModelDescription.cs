@@ -1,6 +1,6 @@
 using System;
 
-namespace dreamlet.WebAppService.Areas.HelpPage.ModelDescriptions
+namespace dreamlet.WebService.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

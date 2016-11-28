@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace dreamlet.WebAppService.Results
+namespace dreamlet.WebService.Results
 {
     public class ChallengeResult : IHttpActionResult
     {

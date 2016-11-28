@@ -8,10 +8,10 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using dreamlet.WebAppService.Providers;
-using dreamlet.WebAppService.Models;
+using dreamlet.WebService.Providers;
+using dreamlet.WebService.Models;
 
-namespace dreamlet.WebAppService
+namespace dreamlet.WebService
 {
     public partial class Startup
     {

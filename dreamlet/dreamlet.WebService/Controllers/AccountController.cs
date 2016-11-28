@@ -13,15 +13,15 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using dreamlet.WebAppService.Models;
-using dreamlet.WebAppService.Providers;
-using dreamlet.WebAppService.Results;
+using dreamlet.WebService.Models;
+using dreamlet.WebService.Providers;
+using dreamlet.WebService.Results;
 
-namespace dreamlet.WebAppService.Controllers
+namespace dreamlet.WebService.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseController
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;

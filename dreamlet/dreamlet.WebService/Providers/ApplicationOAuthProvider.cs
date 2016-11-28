@@ -9,9 +9,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using dreamlet.WebAppService.Models;
+using dreamlet.WebService.Models;
 
-namespace dreamlet.WebAppService.Providers
+namespace dreamlet.WebService.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {

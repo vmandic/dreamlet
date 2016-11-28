@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http.Headers;
 
-namespace dreamlet.WebAppService.Areas.HelpPage
+namespace dreamlet.WebService.Areas.HelpPage
 {
     /// <summary>
     /// This is used to identify the place where the sample should be applied.

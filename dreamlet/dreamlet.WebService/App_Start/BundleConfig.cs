@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace dreamlet.WebAppService
+namespace dreamlet.WebService
 {
     public class BundleConfig
     {

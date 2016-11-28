@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using dreamlet.WebAppService.Controllers;
+using dreamlet.WebService.Controllers;
 
-namespace dreamlet.WebAppService.Tests.Controllers
+namespace dreamlet.WebService.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest

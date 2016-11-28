@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace dreamlet.WebAppService.Models
+namespace dreamlet.WebService.Models
 {
     // Models returned by AccountController actions.
 

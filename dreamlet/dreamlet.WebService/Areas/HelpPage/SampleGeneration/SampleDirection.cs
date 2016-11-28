@@ -1,4 +1,4 @@
-namespace dreamlet.WebAppService.Areas.HelpPage
+namespace dreamlet.WebService.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

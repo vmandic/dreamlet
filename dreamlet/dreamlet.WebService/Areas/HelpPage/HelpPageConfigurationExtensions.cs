@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using dreamlet.WebAppService.Areas.HelpPage.ModelDescriptions;
-using dreamlet.WebAppService.Areas.HelpPage.Models;
+using dreamlet.WebService.Areas.HelpPage.ModelDescriptions;
+using dreamlet.WebService.Areas.HelpPage.Models;
 
-namespace dreamlet.WebAppService.Areas.HelpPage
+namespace dreamlet.WebService.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using dreamlet.WebAppService.Areas.HelpPage.ModelDescriptions;
-using dreamlet.WebAppService.Areas.HelpPage.Models;
+using dreamlet.WebService.Areas.HelpPage.ModelDescriptions;
+using dreamlet.WebService.Areas.HelpPage.Models;
 
-namespace dreamlet.WebAppService.Areas.HelpPage.Controllers
+namespace dreamlet.WebService.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

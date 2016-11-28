@@ -4,15 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace dreamlet.WebAppService.Controllers
+namespace dreamlet.WebService.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
-            return View();
+            return null;
         }
     }
 }

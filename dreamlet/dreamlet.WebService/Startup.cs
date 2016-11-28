@@ -4,9 +4,9 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(dreamlet.WebAppService.Startup))]
+[assembly: OwinStartup(typeof(dreamlet.WebService.Startup))]
 
-namespace dreamlet.WebAppService
+namespace dreamlet.WebService
 {
     public partial class Startup
     {

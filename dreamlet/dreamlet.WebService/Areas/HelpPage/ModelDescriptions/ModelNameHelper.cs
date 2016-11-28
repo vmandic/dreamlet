@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace dreamlet.WebAppService.Areas.HelpPage.ModelDescriptions
+namespace dreamlet.WebService.Areas.HelpPage.ModelDescriptions
 {
     internal static class ModelNameHelper
     {

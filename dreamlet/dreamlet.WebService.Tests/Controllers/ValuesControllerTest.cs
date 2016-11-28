@@ -1,9 +1,9 @@
-﻿using dreamlet.WebAppService.Controllers;
+﻿using dreamlet.WebService.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace dreamlet.WebAppService.Tests.Controllers
+namespace dreamlet.WebService.Tests.Controllers
 {
     [TestClass]
     public class ValuesControllerTest

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace dreamlet.WebAppService.Areas.HelpPage.ModelDescriptions
+namespace dreamlet.WebService.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterDescription
     {

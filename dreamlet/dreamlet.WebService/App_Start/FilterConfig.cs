@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace dreamlet.WebAppService
+namespace dreamlet.WebService
 {
     public class FilterConfig
     {

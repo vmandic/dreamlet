@@ -6,7 +6,7 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 
-namespace dreamlet.WebAppService
+namespace dreamlet.WebService
 {
     public static class WebApiConfig
     {
