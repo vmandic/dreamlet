@@ -49,14 +49,6 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DryIoc, Version=2.9.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DryIoc.dll.2.9.1\lib\net45\DryIoc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DryIoc.WebApi, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DryIoc.WebApi.dll.2.1.2\lib\net45\DryIoc.WebApi.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -126,6 +118,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\DryIocConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -164,6 +157,10 @@
     <ProjectReference Include="..\dreamlet.BusinessLogicLayer\dreamlet.BusinessLogicLayer.csproj">
       <Project>{5bb60522-8418-45e4-8309-ce34cfe9f13b}</Project>
       <Name>dreamlet.BusinessLogicLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dreamlet.Composition\dreamlet.Composition.csproj">
+      <Project>{8bc3381e-c749-49d2-8f46-20f4df22b528}</Project>
+      <Name>dreamlet.Composition</Name>
     </ProjectReference>
     <ProjectReference Include="..\dreamlet.Models\dreamlet.Models.csproj">
       <Project>{d1f4d119-e6e1-4d0a-821a-8254f9e98cfc}</Project>

@@ -40,14 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\BaseService.cs" />
-    <Compile Include="Base\IBaseService.cs" />
+    <Compile Include="Services\Base\BaseService.cs" />
+    <Compile Include="Services\Base\IBaseService.cs" />
+    <Compile Include="Ioc\IocBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\IDreamStoriesService.cs" />
+    <Compile Include="Services\Interfaces\IDreamTermsService.cs" />
+    <Compile Include="Services\Providers\DreamStoriesService.cs" />
+    <Compile Include="Services\Providers\DreamTermsService.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\dreamlet.Composition\dreamlet.Composition.csproj">
+      <Project>{8BC3381E-C749-49D2-8F46-20F4DF22B528}</Project>
+      <Name>dreamlet.Composition</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dreamlet.DataAccessLayer\dreamlet.DataAccessLayer.csproj">
       <Project>{78555352-e0ec-4532-abd0-88ff29f5782e}</Project>
       <Name>dreamlet.DataAccessLayer</Name>

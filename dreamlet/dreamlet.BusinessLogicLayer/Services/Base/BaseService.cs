@@ -3,7 +3,7 @@ using dreamlet.DataAccessLayer.Repository;
 using dreamlet.DataAccessLayer.Entities.Base;
 using System.Collections.Generic;
 
-namespace dreamlet.BusinessLogicLayer.Base
+namespace dreamlet.BusinessLogicLayer.Services.Base
 {
     public abstract class BaseService : IBaseService
     {

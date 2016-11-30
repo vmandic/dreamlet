@@ -1,4 +1,4 @@
-﻿using dreamlet.BusinessLogicLayer.Base;
+﻿using dreamlet.BusinessLogicLayer.Services.Base;
 
 namespace dreamlet.Generic.Tests.Services
 {

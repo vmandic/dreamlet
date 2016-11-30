@@ -2,7 +2,7 @@
 using dreamlet.DataAccessLayer.Repository;
 using dreamlet.DataAccessLayer.Entities.Base;
 
-namespace dreamlet.BusinessLogicLayer.Base
+namespace dreamlet.BusinessLogicLayer.Services.Base
 {
     public interface IBaseService
     {
