@@ -4,7 +4,8 @@
 
 node_modules
 dl
-/dreamlet/packages
-/dreamlet/*/bin
-/dreamlet/*/obj
+/dreamlet.server/packages
+/dreamlet.server/*/bin
+/dreamlet.server/*/obj
 /notes
+/dreamlet.server/TestResults
