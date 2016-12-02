@@ -9,6 +9,9 @@ namespace dreamlet.WebService.Controllers
 {
     public class BaseController : ApiController
     {
-       
+		public BaseController()
+		{
+
+		}
     }
 }

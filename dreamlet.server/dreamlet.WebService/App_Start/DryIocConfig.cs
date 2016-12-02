@@ -1,6 +1,7 @@
 ﻿using dreamlet.BusinessLogicLayer.Ioc;
 using dreamlet.Composition;
 using DryIoc;
+using DryIoc.MefAttributedModel;
 using DryIoc.WebApi;
 using System.Web.Http;
 
@@ -10,7 +11,11 @@ namespace dreamlet.WebService
     {
         public static void Register(HttpConfiguration config)
         {
-            var container = IocBootstrapper.RegisterDependencies(new Container().WithWebApi(config));
+			var container = new Container()
+				.WithWebApi(config)
+				.WithMefAttributedModel();
+
+			IocBootstrapper.RegisterDependencies(container);
 
             // Holds a global static singleton of the dependencies resolver.
             // Grants the ability to resolve dependencies in which ever assemby that references dreamlet.Composition.
