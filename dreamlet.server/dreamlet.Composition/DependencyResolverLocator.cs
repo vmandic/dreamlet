@@ -7,10 +7,10 @@ namespace dreamlet.Composition
         private static readonly object _locker = new object();
         private static IDependencyResolver _instance;
 
-        public static void RegisterResolverOnce(IDependencyResolver dependencyResolver)
+        public static void RegisterResolverOnce(IDependencyResolver httpWebApiDependencyResolver)
         {
             if (_instance == null)
-                _instance = dependencyResolver;
+                _instance = httpWebApiDependencyResolver;
         }
 
         public static IDependencyResolver Instance
