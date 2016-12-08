@@ -2,6 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio. ... NOT
 #######################################################################################
 
+.vs/
 node_modules
 dl
 /dreamlet.server/packages
@@ -9,3 +10,4 @@ dl
 /dreamlet.server/*/obj
 /notes
 /dreamlet.server/TestResults
+dreamlet.server/dreamlet.Utilities/scrapes

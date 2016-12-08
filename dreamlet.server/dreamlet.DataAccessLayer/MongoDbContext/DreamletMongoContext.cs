@@ -1,10 +1,12 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Configuration;
 
 namespace dreamlet.DataAccessLayer.MongoDbContext
 {
+	[Export(typeof(IMongoContext))]
     public class DreamletMongoContext : MongoContext, IMongoContext
     {
         private static readonly string DB_NAME = ConfigurationManager.AppSettings["DB_NAME"].ToString();

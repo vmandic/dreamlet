@@ -4,7 +4,7 @@ var fs = require('fs'),
     limit = require("simple-rate-limiter"),
     async = require("async"),
     cheerio = require('cheerio'),
-    limitedRequest = limit(request).to(3).per(2500);
+    limitedRequest = limit(request).to(6).per(1000);
 
 var scrape1 = function (res) {
     var baseUrl = "{0}/dreamdictionary/{1}_all.htm".format(atob("aHR0cDovL3d3dy5kcmVhbW1vb2RzLmNvbQ==")),
@@ -22,8 +22,16 @@ var scrape1 = function (res) {
 
     // initiate all requests
     async.parallel(requests, function (error, results) {
+        
+        var reducedResults = results.reduce(function(a,b) { return a.concat(b) });
+        var cleanResults = reducedResults.filter(function(t){ 
+            return !t.explanations.some(function(_t) { 
+                return _t[0] == "A" && _t.length == 76 && _t[_t.length-1] == "Z";
+            }) 
+        });
+
         res.setHeader('Content-Type', 'application/json');
-        res.json(results);
+        res.json(cleanResults);
     });
 };
 
@@ -78,20 +86,25 @@ var _saveToJson = function ($, callback) {
 
                 terms.push(currentTerm);
             } else {
-                currentTerm && e.length > 0 && currentTerm.explanations.push(e);
+                currentTerm && e.length > 0 && e.substring(0, 3) != "***" && currentTerm.explanations.push(e);
             }
         }
     });
 
-    callback(null, terms.filter(function (t) {
+    // filter out functions that can show up
+    terms = terms.filter(function (t) {
         return t.name.trim() !== "" && t.explanations.some(function (_t) {
             return _t.indexOf("function") === -1;
         });
-    }));
+    });
+
+   
+
+    callback(null, terms);
 };
 
 var _sanitize = function (str) {
-    return str.replaceAll("\r\n", " ").replaceAll("\r", " ").replaceAll("\n", " ").trim().replaceAll("  ", " ").replaceAll("   ", " ").replace(" TOP", "").trimRight();
+    return str.replaceAll("\r\n", " ").replaceAll("\r", " ").replaceAll("\n", " ").trim().replaceAll("  ", " ").replaceAll("   ", " ").replace(" TOP", "").replaceAll("'", "\'").trimRight();
 };
 
 exports = module.exports = scrape1;
