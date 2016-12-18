@@ -12,8 +12,8 @@ namespace dreamlet.WebService
         public static void Register(HttpConfiguration config)
         {
 			var container = new Container()
-				.WithWebApi(config)
-				.WithMefAttributedModel();
+				.WithMefAttributedModel()
+				.WithWebApi(config);
 
 			IocBootstrapper.RegisterDependencies(container);
 

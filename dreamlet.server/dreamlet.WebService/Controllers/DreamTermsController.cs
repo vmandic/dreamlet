@@ -15,7 +15,8 @@ namespace dreamlet.WebService.Controllers
 {
     public class DreamTermsController : BaseController
     {
-		public IDreamStoriesService DreamStoriesService { get; set; }
+		[Import]
+		public Func<IDreamStoriesService> DreamStoriesService { get; set; }
 
 		public DreamTermsController()
 		{
@@ -27,11 +28,11 @@ namespace dreamlet.WebService.Controllers
 		{
 			if (DreamStoriesService != null)
 			{
-				var x = 5;
-				//IEnumerable<DreamTermLetterGroup> dreamLetterGroups = DreamStoriesService.GetAllDreamTermLetterGroups();
+				var allDreamTerms = DreamStoriesService().GetAllDreamTerms();
+				return Ok(allDreamTerms);
 			}
 
-			return Ok("I am OK");
+			return Ok("failed");
 		}
     }
 }

@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{78555352-E0EC-4532-ABD0-88FF29F5782E}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{DB56D1DB-7ECF-4AE9-9ABD-8D54D5AEF660}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>dreamlet.DataAccessLayer</RootNamespace>
-    <AssemblyName>dreamlet.DataAccessLayer</AssemblyName>
+    <RootNamespace>dreamlet.DatabaseInit</RootNamespace>
+    <AssemblyName>dreamlet.DatabaseInit</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,27 +33,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MongoDB.Bson, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Bson.2.3.0\lib\net45\MongoDB.Bson.dll</HintPath>
+    <Reference Include="MongoDB.Bson, Version=2.4.0.70, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.4.0\lib\net45\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MongoDB.Driver, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.2.3.0\lib\net45\MongoDB.Driver.dll</HintPath>
+    <Reference Include="MongoDB.Driver, Version=2.4.0.70, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.4.0\lib\net45\MongoDB.Driver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MongoDB.Driver.Core, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.Core.2.3.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    <Reference Include="MongoDB.Driver.Core, Version=2.4.0.70, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.4.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,31 +61,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entites\Base\BaseMongoEntity.cs" />
-    <Compile Include="Entites\Base\BaseMongoMetaEntity.cs" />
-    <Compile Include="Entites\Base\IBaseMongoEntity.cs" />
-    <Compile Include="Entites\Models\DreamTag.cs" />
-    <Compile Include="Entites\Models\DreamTerm.cs" />
-    <Compile Include="Entites\Models\DreamTermTag.cs" />
-    <Compile Include="Entites\Models\Embedded\DreamExplanation.cs" />
-    <Compile Include="Entites\Models\Embedded\Meta.cs" />
-    <Compile Include="Entites\Models\Language.cs" />
-    <Compile Include="Entites\Models\User.cs" />
-    <Compile Include="MongoDbContext\DreamletMongoContext.cs" />
-    <Compile Include="MongoDbContext\IMongoContext.cs" />
-    <Compile Include="MongoDbContext\MongoContext.cs" />
+    <Compile Include="ImportModels.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\Repository.cs" />
-    <Compile Include="Repository\RepositoryFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="cs-dev.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="cs-prod.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\dreamlet.BusinessLogicLayer\dreamlet.BusinessLogicLayer.csproj">
+      <Project>{5bb60522-8418-45e4-8309-ce34cfe9f13b}</Project>
+      <Name>dreamlet.BusinessLogicLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dreamlet.Composition\dreamlet.Composition.csproj">
-      <Project>{8BC3381E-C749-49D2-8F46-20F4DF22B528}</Project>
+      <Project>{8bc3381e-c749-49d2-8f46-20f4df22b528}</Project>
       <Name>dreamlet.Composition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dreamlet.DataAccessLayer\dreamlet.DataAccessLayer.csproj">
+      <Project>{78555352-e0ec-4532-abd0-88ff29f5782e}</Project>
+      <Name>dreamlet.DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\dreamlet.Utilities\dreamlet.Utilities.csproj">
       <Project>{87cd6fba-6917-4a06-8988-77086e967790}</Project>

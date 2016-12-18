@@ -1,5 +1,6 @@
 ﻿using dreamlet.BusinessLogicLayer.Services.Interfaces;
 using dreamlet.BusinessLogicLayer.Services.Providers;
+using dreamlet.DataAccessLayer.MongoDbContext;
 using DryIoc;
 
 namespace dreamlet.BusinessLogicLayer.Ioc

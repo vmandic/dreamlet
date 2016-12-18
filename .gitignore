@@ -7,5 +7,8 @@ dl
 /dreamlet.server/packages
 /dreamlet.server/*/bin
 /dreamlet.server/*/obj
+/dreamlet.server/*/cs-dev.config
+/dreamlet.server/*/cs-prod.config
 /notes
 /dreamlet.server/TestResults
+*/dreamlet.Utilities/Scrapes
