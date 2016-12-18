@@ -11,6 +11,7 @@ namespace dreamlet.BusinessLogicLayer.Ioc
         {
             container.Register<IDreamStoriesService, DreamStoriesService>(Reuse.InWebRequest);
             container.Register<IDreamTermsService, DreamTermsService>(Reuse.InWebRequest);
+			container.Register<IMongoContext, DreamletMongoContext>(Reuse.Singleton);
 
             return container;
         }
