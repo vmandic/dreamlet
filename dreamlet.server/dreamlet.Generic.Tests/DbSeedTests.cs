@@ -1,7 +1,6 @@
 ﻿using dreamlet.BusinessLogicLayer.Ioc;
-using dreamlet.DataAccessLayer.BootstarpDatabase;
-using dreamlet.DataAccessLayer.Entities.Base;
 using dreamlet.DataAccessLayer.Entities.Models;
+using dreamlet.DatabaseInit.ImportModels;
 using dreamlet.Generic.Tests.Services;
 using DryIoc;
 using DryIoc.MefAttributedModel;
@@ -19,15 +18,6 @@ namespace dreamlet.Generic.Tests
 	[TestClass]
 	public class DbSeedTests
 	{
-		class JsonDreamTerm : BaseMongoEntity
-		{
-			[JsonProperty("name")]
-			public string Name { get; set; }
-			[JsonProperty("explanations")]
-			public IEnumerable<string> Explanations { get; set; }
-		}
-
-		private static MongoClientSettings _settings;
 		private static string DB_NAME, DB_USR, DB_PWD;
 		private static IContainer _container;
 
@@ -44,18 +34,8 @@ namespace dreamlet.Generic.Tests
 			Cleanup();
 			_AddUser(db);
 
-			_settings = new MongoClientSettings()
-			{
-				GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard,
-				ConnectTimeout = new TimeSpan(0, 1, 0),
-				WriteConcern = WriteConcern.Acknowledged,
-				Credentials = new List<MongoCredential> { MongoCredential.CreateCredential(DB_NAME, DB_USR, DB_PWD) },
-				Server = new MongoServerAddress("localhost")
-			};
-
 			// bootstrap IoC
-			_container = new Container().WithMefAttributedModel();
-			IocBootstrapper.RegisterDependencies(_container);
+			_container = IocBootstrapper.RegisterDependencies(new Container().WithMefAttributedModel());
 		}
 
 		private static void _AddUser(IMongoDatabase db)
@@ -94,9 +74,8 @@ namespace dreamlet.Generic.Tests
 		public void Should_open_file_path_for_seed()
 		{
 			// PREPARE
-			var b = new DatabaseBootstrapper();
-			var obj = JsonConvert.DeserializeObject<IEnumerable<JsonDreamTerm>>(b.Text);
-
+			string json = System.IO.File.ReadAllText(@"Scrapes/dream-scrape1-take2-formatted.json");
+			var obj = JsonConvert.DeserializeObject<IEnumerable<JsonDreamTerm>>(json);
 
 			var service = new GenericService();
 			var dreamTermRepo = service.Repository<DreamTerm>();

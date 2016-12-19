@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace dreamlet.DataAccessLayer.Repository
 {
-    public class GenericMongoRepository<TDocument, TKey> : IRepository<TDocument, TKey> where TDocument : IBaseMongoEntity<TKey> where TKey : class
+    public class Repository<TDocument, TKey> : IRepository<TDocument, TKey> where TDocument : IBaseMongoEntity<TKey> where TKey : class
     {
         /// <summary>
         /// MongoCollection field.
@@ -17,7 +17,7 @@ namespace dreamlet.DataAccessLayer.Repository
         private IMongoCollection<TDocument> _collection;
         private bool _Compare(TKey a, TKey b) => EqualityComparer<TKey>.Default.Equals(a, b);
 
-        public GenericMongoRepository(IMongoContext context)
+        public Repository(IMongoContext context)
         {
             this._collection = context.Collection<TDocument>();
         }
@@ -160,8 +160,8 @@ namespace dreamlet.DataAccessLayer.Repository
         #endregion
     }
 
-    public class GenericMongoRepository<TDocument> : GenericMongoRepository<TDocument, string>, IRepository<TDocument> where TDocument : IBaseMongoEntity
+    public class Repository<TDocument> : Repository<TDocument, string>, IRepository<TDocument> where TDocument : IBaseMongoEntity
     {
-        public GenericMongoRepository(IMongoContext context) : base(context) { }
+        public Repository(IMongoContext context) : base(context) { }
     }
 }

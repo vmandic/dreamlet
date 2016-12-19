@@ -14,6 +14,7 @@ namespace dreamlet.Generic.Tests
     {
         private static MongoClientSettings _settings;
         private static string DB_NAME, DB_USR, DB_PWD;
+		private static MongoClient cli;
 
         [TestInitialize]
         public void Setup()
@@ -22,7 +23,7 @@ namespace dreamlet.Generic.Tests
             DB_USR = ConfigurationManager.AppSettings["DB_USR"].ToString();
             DB_PWD = ConfigurationManager.AppSettings["DB_PWD"].ToString();
 
-            var cli = new MongoClient();
+			cli = new MongoClient();
             var db = cli.GetDatabase(DB_NAME);
 
             Cleanup();
@@ -51,7 +52,7 @@ namespace dreamlet.Generic.Tests
         [TestCleanup]
         public void Cleanup()
         {
-            var cli = new MongoClient();
+            cli = cli ?? new MongoClient();
             var db = cli.GetDatabase(DB_NAME);
 
             if (db != null)

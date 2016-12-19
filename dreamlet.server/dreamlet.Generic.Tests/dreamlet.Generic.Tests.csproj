@@ -87,6 +87,10 @@
       <Project>{78555352-e0ec-4532-abd0-88ff29f5782e}</Project>
       <Name>dreamlet.DataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\dreamlet.DatabaseInit\dreamlet.DatabaseInit.csproj">
+      <Project>{DB56D1DB-7ECF-4AE9-9ABD-8D54D5AEF660}</Project>
+      <Name>dreamlet.DatabaseInit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dreamlet.Models\dreamlet.Models.csproj">
       <Project>{d1f4d119-e6e1-4d0a-821a-8254f9e98cfc}</Project>
       <Name>dreamlet.Models</Name>
@@ -101,7 +105,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>
