@@ -16,7 +16,7 @@ namespace dreamlet.WebService.Controllers
     public class DreamTermsController : BaseController
     {
 		[Import]
-		public Func<IDreamStoriesService> DreamStoriesService { get; set; }
+		public Func<IDreamTermsService> DreamStoriesService { get; set; }
 
 		public DreamTermsController()
 		{
