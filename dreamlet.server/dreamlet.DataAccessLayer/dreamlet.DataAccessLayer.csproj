@@ -59,7 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbSeed\DatabaseBootstrapper.cs" />
     <Compile Include="Entites\Base\BaseMongoEntity.cs" />
     <Compile Include="Entites\Base\BaseMongoMetaEntity.cs" />
     <Compile Include="Entites\Base\IBaseMongoEntity.cs" />

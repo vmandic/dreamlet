@@ -6,7 +6,7 @@ namespace dreamlet.BusinessLogicLayer.Services.Base
 {
     public interface IBaseService
     {
-        IMongoContext MongoDatabaseContext { get; }
+        IMongoContext MongoDatabaseContext { get; set; }
 
         /// <summary>
         /// Resolves a string Id based cached repository instance which exposes the MongoDatabase and MongoCollection.

@@ -13,3 +13,5 @@ dl
 /notes
 /dreamlet.server/TestResults
 */dreamlet.Utilities/Scrapes
+*.user
+/dreamlet.server/.vs/config
