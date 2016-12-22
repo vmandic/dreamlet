@@ -67,8 +67,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Content Include="cs-dev.config" />
-    <Content Include="cs-prod.config" />
+    <Content Include="cs-dev.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="cs-prod.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
