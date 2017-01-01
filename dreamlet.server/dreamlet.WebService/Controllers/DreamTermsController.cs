@@ -1,13 +1,6 @@
 ﻿using dreamlet.BusinessLogicLayer.Services.Interfaces;
-using dreamlet.BusinessLogicLayer.Services.Providers;
-using dreamlet.Models.Transport.DreamTerms;
-using DryIocAttributes;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -24,11 +17,12 @@ namespace dreamlet.WebService.Controllers
 		}
 
 		[HttpGet]
-		public IHttpActionResult GetAllDreamTermLetterGroups()
+		[Route("letter/{letterChar:alpha:maxlength(1)}")]
+		public async Task<IHttpActionResult> GetLetterGroupDreamTerms(char letterChar)
 		{
 			if (DreamStoriesService != null)
 			{
-				var allDreamTerms = DreamStoriesService().GetAllDreamTerms();
+				var allDreamTerms = await DreamStoriesService().GetLetterGroupDreamTerms(letterChar);
 				return Ok(allDreamTerms);
 			}
 

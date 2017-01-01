@@ -2,10 +2,18 @@
 
 namespace dreamlet.DataAccessLayer.Entities.Models
 {
-    public class User : BaseMongoMetaEntity
+    public class User : BaseEntity
     {
-        public string Role { get; set; }
+        public DreamletRole Role { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }
     }
+
+	public class UserMapping : BaseEntityMapping<User>
+	{
+		public UserMapping()
+		{
+
+		}
+	}
 }

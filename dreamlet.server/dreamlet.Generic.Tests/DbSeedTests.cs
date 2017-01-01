@@ -99,7 +99,7 @@ namespace dreamlet.Generic.Tests
 				LanguageId = lang1.Id,
 				Meta = _NewMeta(usrid),
 				Term = x.Name,
-				Explanations = x.Explanations.Select(de => new DreamExplanation { Explanation = de })
+				DreamExplanations = x.Explanations.Select(de => new DreamExplanation { Explanation = de })
 			});
 
 			dreamTermRepo.Add(dreamTerms);

@@ -110,12 +110,8 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="cs-dev.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="cs-prod.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="cs-dev.config" />
+    <None Include="cs-prod.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

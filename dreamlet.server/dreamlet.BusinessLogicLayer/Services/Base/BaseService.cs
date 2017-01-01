@@ -1,14 +1,13 @@
-﻿using dreamlet.DataAccessLayer.MongoDbContext;
-using dreamlet.DataAccessLayer.Repository;
+﻿using dreamlet.DataAccessLayer.EfDbContext;
 using dreamlet.DataAccessLayer.Entities.Base;
+using dreamlet.DataAccessLayer.Repository;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 
 namespace dreamlet.BusinessLogicLayer.Services.Base
 {
 	public abstract class BaseService : IBaseService
 	{
-		IMongoContext _context;
+		DreamletEfContext _context;
 		private static readonly object _locker = new object();
 		private Dictionary<string, object> _repositories;
 		private RepositoryFactory _factory;
@@ -17,15 +16,15 @@ namespace dreamlet.BusinessLogicLayer.Services.Base
 		{
 			get
 			{
-				return _factory ?? (_factory = new RepositoryFactory(MongoDatabaseContext));
+				return _factory ?? (_factory = new RepositoryFactory(DreamletContext));
 			}
 		}
 
-		public IMongoContext MongoDatabaseContext
+		public DreamletEfContext DreamletContext
 		{
 			get
 			{
-				return _context ?? (_context = new DreamletMongoContext());
+				return _context ?? (_context = new DreamletEfContext());
 			}
 
 			set
@@ -34,8 +33,6 @@ namespace dreamlet.BusinessLogicLayer.Services.Base
 			}
 		}
 
-		public IRepository<TDocument> Repository<TDocument>() where TDocument : IBaseMongoEntity
-			=> Factory.Get<TDocument>(MongoDatabaseContext);
-
+		public IRepository<TDocument> Repository<TDocument>() where TDocument : class, IBaseEntity => Factory.Get<TDocument>(DreamletContext);
 	}
 }

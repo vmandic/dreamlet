@@ -103,7 +103,7 @@ namespace dreamlet.Generic.Tests
             {
                 Term = "Car",
                 LanguageId = lang1.Id,
-                Explanations = new List<DreamExplanation>()
+                DreamExplanations = new List<DreamExplanation>()
                 {
                     new DreamExplanation() { Explanation = "You are awesome." },
                     new DreamExplanation() { Explanation = "You've been driving a car obviously!" }

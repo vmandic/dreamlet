@@ -27,9 +27,9 @@ namespace dreamlet.Generic.Tests
 		[TestMethod]
 		public void Should_fetch_all_dream_terms()
 		{
-			var allDreamTerms = DreamTermsService.GetAllDreamTerms();
+			var allADreamTerms = DreamTermsService.GetLetterGroupDreamTerms("a");
 
-			Assert.IsNotNull(allDreamTerms);
+			Assert.IsNotNull(allADreamTerms);
 		}
 	}
 }
