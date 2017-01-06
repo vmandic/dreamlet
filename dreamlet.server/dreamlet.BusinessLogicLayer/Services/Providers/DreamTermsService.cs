@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 namespace dreamlet.BusinessLogicLayer.Services.Providers
 {
 	public class DreamTermsService : BaseService, IDreamTermsService
-    {
-        public DreamTermsService()
-        {
+	{
+		public DreamTermsService()
+		{
 
-        }
+		}
 
 		public Task<List<DreamTermModel>> GetLetterGroupDreamTerms(char letter)
 		{
 			letter = letter.ToString().ToLowerInvariant()[0];
 
-			return Repository<DreamTerm>()
+			return R<DreamTerm>()
 				.Filter(x => x.Term.ToLower().First() == letter)
 				.Select(x => new DreamTermModel
 				{

@@ -1,15 +1,6 @@
-﻿using dreamlet.DataAccessLayer.Entities.Base;
-using dreamlet.DataAccessLayer.Entities.Models;
-using System;
-using System.Collections.Generic;
+﻿using dreamlet.DataAccessLayer.Entities.Models;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace dreamlet.DataAccessLayer.EfDbContext
 {

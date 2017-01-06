@@ -1,11 +1,13 @@
 ﻿using dreamlet.DataAccessLayer.EfDbContext;
 using dreamlet.DataAccessLayer.Entities.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Threading.Tasks;
 
 namespace dreamlet.DataAccessLayer.Repository
 {
-	public class RepositoryFactory
+	public class RepositoryFactory : IRepositoryFactory
 	{
 		private static readonly object _locker = new object();
 		private Dictionary<string, object> _repositories;
@@ -34,6 +36,5 @@ namespace dreamlet.DataAccessLayer.Repository
 				return (IRepository<TEntity>)_repositories[type];
 			}
 		}
-
 	}
 }

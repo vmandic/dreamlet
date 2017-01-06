@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dreamlet.Utilities;
+using System;
 
 namespace dreamlet.DataAccessLayer.Entities.Base
 {

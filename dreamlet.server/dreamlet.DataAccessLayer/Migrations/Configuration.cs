@@ -5,31 +5,31 @@ namespace dreamlet.DataAccessLayer.Migrations
 	using System.Data.Entity.Migrations;
 	using System.Data.Entity.Migrations.Design;
 	using System.Data.Entity.Migrations.Model;
-
+	using Utilities;
 	internal sealed class Configuration : DbMigrationsConfiguration<dreamlet.DataAccessLayer.EfDbContext.DreamletEfContext>
-    {
-        public Configuration()
-        {
-            AutomaticMigrationsEnabled = false;
+	{
+		public Configuration()
+		{
+			AutomaticMigrationsEnabled = false;
 			CodeGenerator = new ExtendedMigrationCodeGenerator();
 		}
 
-        protected override void Seed(dreamlet.DataAccessLayer.EfDbContext.DreamletEfContext context)
-        {
-            //  This method will be called after migrating to the latest version.
+		protected override void Seed(dreamlet.DataAccessLayer.EfDbContext.DreamletEfContext context)
+		{
+			//  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
-        }
-    }
+			//  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+			//  to avoid creating duplicate seed data. E.g.
+			//
+			//    context.People.AddOrUpdate(
+			//      p => p.FullName,
+			//      new Person { FullName = "Andrew Peters" },
+			//      new Person { FullName = "Brice Lambson" },
+			//      new Person { FullName = "Rowan Miller" }
+			//    );
+			//
+		}
+	}
 
 	public class ExtendedMigrationCodeGenerator : MigrationCodeGenerator
 	{
@@ -40,8 +40,15 @@ namespace dreamlet.DataAccessLayer.Migrations
 				if (operation is CreateTableOperation)
 				{
 					foreach (var column in ((CreateTableOperation)operation).Columns)
+					{
 						if (column.ClrType == typeof(DateTime) && column.IsNullable.HasValue && !column.IsNullable.Value && string.IsNullOrEmpty(column.DefaultValueSql))
 							column.DefaultValueSql = "GETUTCDATE()";
+
+						if (column.Name == "ActiveState")
+							column.DefaultValue = (int)ActiveState.Active;
+					}
+
+					
 				}
 				else if (operation is AddColumnOperation)
 				{
@@ -49,6 +56,9 @@ namespace dreamlet.DataAccessLayer.Migrations
 
 					if (column.ClrType == typeof(DateTime) && column.IsNullable.HasValue && !column.IsNullable.Value && string.IsNullOrEmpty(column.DefaultValueSql))
 						column.DefaultValueSql = "GETUTCDATE()";
+
+					if (column.Name == "ActiveState")
+						column.DefaultValue = (int)ActiveState.Active;
 				}
 			}
 

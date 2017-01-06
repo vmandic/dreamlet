@@ -1,7 +1,9 @@
 ﻿using dreamlet.DataAccessLayer.EfDbContext;
 using dreamlet.DataAccessLayer.Entities.Base;
 using dreamlet.DataAccessLayer.Repository;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace dreamlet.BusinessLogicLayer.Services.Base
 {
@@ -33,6 +35,34 @@ namespace dreamlet.BusinessLogicLayer.Services.Base
 			}
 		}
 
-		public IRepository<TDocument> Repository<TDocument>() where TDocument : class, IBaseEntity => Factory.Get<TDocument>(DreamletContext);
+		public IRepository<TDocument> R<TDocument>() where TDocument : class, IBaseEntity => Factory.Get<TDocument>(DreamletContext);
+
+		public bool Commit()
+		{
+			try
+			{
+				DreamletContext.SaveChanges();
+				return true;
+			}
+			catch (Exception ex)
+			{
+				// TODO: handle or log ex
+				return false;
+			}
+		}
+
+		public async Task<bool> CommitAsync()
+		{
+			try
+			{
+				await DreamletContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception ex)
+			{
+				// TODO: handle or log ex
+				return false;
+			}
+		}
 	}
 }

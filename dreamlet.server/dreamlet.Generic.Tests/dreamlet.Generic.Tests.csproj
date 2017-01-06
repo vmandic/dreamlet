@@ -107,11 +107,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\dreamlet.Configs\cs-dev.config">
+      <Link>cs-dev.config</Link>
+    </None>
+    <None Include="..\dreamlet.Configs\cs-prod.config">
+      <Link>cs-prod.config</Link>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="cs-dev.config" />
-    <None Include="cs-prod.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

@@ -13,7 +13,7 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 
 	internal class DreamExplanationMapping : BaseEntityMapping<DreamExplanation>
 	{
-		public DreamExplanationMapping()
+		public DreamExplanationMapping() : base()
 		{
 			
 		}

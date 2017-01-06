@@ -17,7 +17,7 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 
 	internal class LanguageMapping : BaseEntityMapping<Language>
 	{
-		public LanguageMapping()
+		public LanguageMapping() : base()
 		{
 
 		}

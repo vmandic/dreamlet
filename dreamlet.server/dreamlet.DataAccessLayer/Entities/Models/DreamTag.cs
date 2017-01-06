@@ -16,7 +16,7 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 
 	internal class DreamTagMapping : BaseEntityMapping<DreamTag>
 	{
-		public DreamTagMapping()
+		public DreamTagMapping() : base()
 		{
 
 		}

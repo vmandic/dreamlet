@@ -12,12 +12,12 @@ namespace dreamlet.DataAccessLayer.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false, identity: true),
+                        SequenceId = c.Int(nullable: false, identity: true),
+                        ActiveState = c.Int(nullable: false, defaultValue: 1),
+                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         Explanation = c.String(),
                         DreamTermId = c.Guid(nullable: false),
-                        ActiveState = c.Int(nullable: false),
-                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
-                        SequenceId = c.Int(nullable: false, identity: true),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.DreamTerm", t => t.DreamTermId)
@@ -28,12 +28,12 @@ namespace dreamlet.DataAccessLayer.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false, identity: true),
+                        SequenceId = c.Int(nullable: false, identity: true),
+                        ActiveState = c.Int(nullable: false, defaultValue: 1),
+                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         LanguageId = c.Guid(nullable: false),
                         Term = c.String(),
-                        ActiveState = c.Int(nullable: false),
-                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
-                        SequenceId = c.Int(nullable: false, identity: true),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Language", t => t.LanguageId)
@@ -44,12 +44,12 @@ namespace dreamlet.DataAccessLayer.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false, identity: true),
+                        SequenceId = c.Int(nullable: false, identity: true),
+                        ActiveState = c.Int(nullable: false, defaultValue: 1),
+                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DreamTagId = c.Guid(nullable: false),
                         DreamTermId = c.Guid(nullable: false),
-                        ActiveState = c.Int(nullable: false),
-                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
-                        SequenceId = c.Int(nullable: false, identity: true),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.DreamTag", t => t.DreamTagId)
@@ -62,11 +62,11 @@ namespace dreamlet.DataAccessLayer.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false, identity: true),
-                        Tag = c.String(),
-                        ActiveState = c.Int(nullable: false),
-                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
                         SequenceId = c.Int(nullable: false, identity: true),
+                        ActiveState = c.Int(nullable: false, defaultValue: 1),
+                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        Tag = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -75,11 +75,11 @@ namespace dreamlet.DataAccessLayer.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false, identity: true),
-                        InternationalCode = c.String(),
-                        ActiveState = c.Int(nullable: false),
-                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
                         SequenceId = c.Int(nullable: false, identity: true),
+                        ActiveState = c.Int(nullable: false, defaultValue: 1),
+                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        InternationalCode = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -88,13 +88,13 @@ namespace dreamlet.DataAccessLayer.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false, identity: true),
+                        SequenceId = c.Int(nullable: false, identity: true),
+                        ActiveState = c.Int(nullable: false, defaultValue: 1),
+                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         Role = c.Int(nullable: false),
                         Email = c.String(),
                         PasswordHash = c.String(),
-                        ActiveState = c.Int(nullable: false),
-                        CreatedAtUtc = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
-                        SequenceId = c.Int(nullable: false, identity: true),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                     })
                 .PrimaryKey(t => t.Id);
             

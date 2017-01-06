@@ -6,9 +6,18 @@ using System.Threading.Tasks;
 
 namespace dreamlet.Utilities
 {
-	public enum DreamletRoles
+	[Flags]
+	public enum ActiveState : int
 	{
-		User,
-		Admin
+		Deleted = 0,
+		Active = 1,
+		Inactive = 2
+	}
+
+	[Flags]
+	public enum DreamletRole : int
+	{
+		Admin = 0,
+		User = 1
 	}
 }

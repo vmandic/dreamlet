@@ -179,8 +179,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cs-dev.config" />
-    <Content Include="cs-prod.config" />
+    <Content Include="..\dreamlet.Configs\cs-dev.config">
+      <Link>cs-dev.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\dreamlet.Configs\cs-prod.config">
+      <Link>cs-prod.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

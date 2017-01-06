@@ -13,6 +13,8 @@ namespace dreamlet.DataAccessLayer.Repository
 {
 	public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IBaseEntity
 	{
+		private static object _locker = new object();
+
 		public DreamletEfContext Context { get; set; }
 		public IDbSet<TEntity> Set { get; set; }
 
@@ -66,12 +68,15 @@ namespace dreamlet.DataAccessLayer.Repository
 
 		public virtual TEntity Create(TEntity TEntity)
 		{
-			var newEntry = Set.Add(TEntity);
+			lock (_locker)
+			{
+				var newEntry = Set.Add(TEntity);
 
-			if (!shareContext)
-				Context.SaveChanges();
+				if (!shareContext)
+					Context.SaveChanges();
 
-			return newEntry;
+				return newEntry;
+			}
 		}
 
 		public int UpdateForceAttached(TEntity t)
@@ -142,7 +147,7 @@ namespace dreamlet.DataAccessLayer.Repository
 				await Context.SaveChangesAsync();
 				return true;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				// TODO: log ex
 				return false;
@@ -216,7 +221,10 @@ namespace dreamlet.DataAccessLayer.Repository
 
 		public bool HasAny(Expression<Func<TEntity, bool>> predicate)
 		{
-			return Set.Any(predicate);
+			lock (_locker)
+			{
+				return Set.Any(predicate);
+			}
 		}
 
 		public bool HasAll(Expression<Func<TEntity, bool>> predicate)
@@ -359,7 +367,7 @@ namespace dreamlet.DataAccessLayer.Repository
 				await Context.SaveChangesAsync();
 				return true;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				// TODO: log ex
 				return false;
@@ -374,7 +382,7 @@ namespace dreamlet.DataAccessLayer.Repository
 				await Context.SaveChangesAsync();
 				return true;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				// TODO: log ex
 				return false;
