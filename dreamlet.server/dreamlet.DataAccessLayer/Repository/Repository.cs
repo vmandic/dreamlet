@@ -42,7 +42,7 @@ namespace dreamlet.DataAccessLayer.Repository
 
 		public virtual IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate)
 		{
-			return Set.Where(predicate).AsQueryable<TEntity>();
+			return Set.Where(predicate).AsQueryable();
 		}
 
 		public virtual IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
@@ -53,7 +53,7 @@ namespace dreamlet.DataAccessLayer.Repository
 				foreach (var i in includes)
 					query = query.Include(i);
 
-			return query.Where(predicate).AsQueryable<TEntity>();
+			return query.Where(predicate).AsQueryable();
 		}
 
 		public bool Contains(Expression<Func<TEntity, bool>> predicate)

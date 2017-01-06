@@ -1,12 +1,14 @@
 ﻿using dreamlet.DataAccessLayer.Entities.Models;
+using DryIocAttributes;
+using System.ComponentModel.Composition;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace dreamlet.DataAccessLayer.EfDbContext
 {
+	[Export, WebRequestReuse]
 	public class DreamletEfContext : DbContext
 	{
-
 		static DreamletEfContext()
 		{
 			// NOTE: do not create database on "first contact", i.e. no database init strategy.

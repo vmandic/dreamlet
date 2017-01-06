@@ -1,12 +1,12 @@
 ﻿using dreamlet.DataAccessLayer.EfDbContext;
 using dreamlet.DataAccessLayer.Entities.Base;
-using System;
+using DryIocAttributes;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Threading.Tasks;
 
 namespace dreamlet.DataAccessLayer.Repository
 {
+	[Export, WebRequestReuse]
 	public class RepositoryFactory : IRepositoryFactory
 	{
 		private static readonly object _locker = new object();

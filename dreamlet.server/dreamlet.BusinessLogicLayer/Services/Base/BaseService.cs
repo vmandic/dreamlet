@@ -3,6 +3,7 @@ using dreamlet.DataAccessLayer.Entities.Base;
 using dreamlet.DataAccessLayer.Repository;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 
 namespace dreamlet.BusinessLogicLayer.Services.Base
@@ -14,6 +15,11 @@ namespace dreamlet.BusinessLogicLayer.Services.Base
 		private Dictionary<string, object> _repositories;
 		private RepositoryFactory _factory;
 
+		public BaseService()
+		{
+
+		}
+
 		public RepositoryFactory Factory
 		{
 			get
@@ -22,6 +28,7 @@ namespace dreamlet.BusinessLogicLayer.Services.Base
 			}
 		}
 
+		[Import]
 		public DreamletEfContext DreamletContext
 		{
 			get
