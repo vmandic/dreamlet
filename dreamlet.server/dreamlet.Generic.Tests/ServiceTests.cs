@@ -1,35 +1,36 @@
 ﻿using dreamlet.BusinessLogicLayer.Services.Interfaces;
 using dreamlet.BusinessLogicLayer.Services.Providers;
-using dreamlet.DataAccessLayer.MongoDbContext;
+using dreamlet.DataAccessLayer.EfDbContext;
+using dreamlet.Models.Transport.DreamTerms;
+using DryIoc;
+using DryIoc.MefAttributedModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Driver;
-using System.Configuration;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace dreamlet.Generic.Tests
 {
 	[TestClass]
 	public class ServiceTests
 	{
-		IDreamTermsService DreamTermsService { get; set; }
+		private IContainer _container;
+
+		IDreamTermsService DreamTermsService { get { return _container.Resolve<IDreamTermsService>(); } }
 
 		[TestInitialize]
 		public void Setup()
 		{
-			var dbcs = ConfigurationManager.ConnectionStrings["cs"].ToString();
-			var mongoClient = new MongoClient(dbcs);
-			var settings = mongoClient.Settings;
-			var dbContext = new DreamletMongoContext(settings);
+			_container = new Container().WithMefAttributedModel();
 
-			DreamTermsService = new DreamTermsService();
-			DreamTermsService.MongoDatabaseContext = dbContext;
+			_container.Register<DreamletEfContext>(Reuse.Singleton);
+			_container.Register<IDreamTermsService, DreamTermsService>(Reuse.Singleton);
 		}
 
 		[TestMethod]
-		public void Should_fetch_all_dream_terms()
+		public async Task Should_fetch_all_dream_terms_for_letter_a()
 		{
-			var allDreamTerms = DreamTermsService.GetAllDreamTerms();
-
-			Assert.IsNotNull(allDreamTerms);
+			List<DreamTermModel> allADreamTerms = await DreamTermsService.GetLetterGroupDreamTerms('a');
+			Assert.IsNotNull(allADreamTerms);
 		}
 	}
 }

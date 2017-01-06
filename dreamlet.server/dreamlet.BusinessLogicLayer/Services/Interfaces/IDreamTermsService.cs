@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using dreamlet.Models.Transport.DreamTerms;
 using dreamlet.BusinessLogicLayer.Services.Base;
+using System.Threading.Tasks;
 
 namespace dreamlet.BusinessLogicLayer.Services.Interfaces
 {
 	public interface IDreamTermsService : IBaseService
-	{
-		IEnumerable<DreamTermModel> GetAllDreamTerms();
-		IEnumerable<DreamTermLetterGroup> GetAllDreamTermLetterGroups();
-		DreamTermLetterGroup GetDreamTermLetterGroup(string letter);
+	{ 
+		Task<List<DreamTermModel>> GetLetterGroupDreamTerms(char letter);
 	}
 }

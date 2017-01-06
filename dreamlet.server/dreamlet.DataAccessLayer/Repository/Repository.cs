@@ -1,167 +1,424 @@
-﻿using dreamlet.DataAccessLayer.MongoDbContext;
+﻿using dreamlet.DataAccessLayer.EfDbContext;
 using dreamlet.DataAccessLayer.Entities.Base;
-using MongoDB.Bson;
-using MongoDB.Driver;
+using dreamlet.Utilities;
+using EntityFramework.Extensions;
+using LinqKit;
 using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace dreamlet.DataAccessLayer.Repository
 {
-    public class Repository<TDocument, TKey> : IRepository<TDocument, TKey> where TDocument : IBaseMongoEntity<TKey> where TKey : class
-    {
-        /// <summary>
-        /// MongoCollection field.
-        /// </summary>
-        private IMongoCollection<TDocument> _collection;
-        private bool _Compare(TKey a, TKey b) => EqualityComparer<TKey>.Default.Equals(a, b);
+	public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IBaseEntity
+	{
+		private static object _locker = new object();
 
-        public Repository(IMongoContext context)
-        {
-            this._collection = context.Collection<TDocument>();
-        }
+		public DreamletEfContext Context { get; set; }
+		public IDbSet<TEntity> Set { get; set; }
 
-        /// <summary>
-        /// Gets the Mongo collection (to perform advanced operations).
-        /// </summary>
-        /// <remarks>
-        /// One can argue that exposing this property (and with that, access to it's Database property for instance
-        /// (which is a "parent")) is not the responsibility of this class. Use of this property is highly discouraged;
-        /// for most purposes you can use the GenericMongoRepositoryManager&lt;T&gt;
-        /// </remarks>
-        /// <value>The Mongo collection (to perform advanced operations).</value>
-        public IMongoCollection<TDocument> Collection
-        {
-            get { return this._collection; }
-        }
+		private bool shareContext;
 
-        /// <summary>
-        /// Returns the T by its given id.
-        /// </summary>
-        /// <param name="id">The Id of the entity to retrieve.</param>
-        /// <returns>The Entity T.</returns>
-        public virtual TDocument GetById(TKey id)
-            => this._collection.Find(x => x.Id == id).FirstOrDefault();
-        
-        /// <summary>
-        /// Adds the new entity in the repository.
-        /// </summary>
-        /// <param name="entity">The entity T.</param>
-        /// <returns>The added entity including its new ObjectId.</returns>
-        public virtual TDocument Add(TDocument entity)
-        {
-            this._collection.InsertOne(entity);
-            return entity;
-        }
+		public Repository(DreamletEfContext ctx)
+		{
+			Context = ctx;
+			shareContext = true;
+			Set = Context.Set<TEntity>();
+		}
 
-        /// <summary>
-        /// Adds the new entities in the repository.
-        /// </summary>
-        /// <param name="entities">The entities of type T.</param>
-        public virtual void Add(IEnumerable<TDocument> entities)
-            => this._collection.InsertMany(entities);
+		public Repository(DreamletEfContext ctx, bool _shareContext = true)
+		{
+			Context = ctx;
+			shareContext = _shareContext;
+			Set = Context.Set<TEntity>();
+		}
 
-        /// <summary>
-        /// Upserts an entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns>The updated entity.</returns>
-        public virtual TDocument Update(TDocument entity)
-        {
-            var result = this._collection.ReplaceOne(x => _Compare(x.Id, entity.Id), entity);
-            return entity;
-        }
+		public void Dispose()
+		{
+			if (shareContext && (Context != null))
+				Context.Dispose();
+		}
 
-        /// <summary>
-        /// Upserts the entities.
-        /// </summary>
-        /// <param name="entities">The entities to update.</param>
-        public virtual void Update(IEnumerable<TDocument> entities)
-            => entities.ToList().ForEach(entity => this.Update(entity));
+		public virtual IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate)
+		{
+			return Set.Where(predicate).AsQueryable();
+		}
 
-        /// <summary>
-        /// Deletes an entity from the repository by its id.
-        /// </summary>
-        /// <param name="id">The entity's id.</param>
-        public virtual void Delete(TKey id)
-            => this._collection.DeleteOne(x => _Compare(x.Id, id));
+		public virtual IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
+		{
+			var query = Set.AsQueryable();
 
-        /// <summary>
-        /// Deletes the given entity.
-        /// </summary>
-        /// <param name="entity">The entity to delete.</param>
-        public virtual void Delete(TDocument entity)
-            => this.Delete(entity.Id);
+			if (includes != null)
+				foreach (var i in includes)
+					query = query.Include(i);
 
-        /// <summary>
-        /// Deletes all entities in the repository.
-        /// </summary>
-        public virtual void DeleteAll()
-            => this._collection.DeleteMany(new BsonDocument());
+			return query.Where(predicate).AsQueryable();
+		}
 
-        /// <summary>
-        /// Counts the total entities in the repository.
-        /// </summary>
-        /// <returns>Count of entities in the collection.</returns>
-        public virtual long Count()
-            => this._collection.Count(new BsonDocument());
+		public bool Contains(Expression<Func<TEntity, bool>> predicate)
+		{
+			return Set.Count(predicate) > 0;
+		}
 
-        /// <summary>
-        /// Checks if the entity exists for given predicate.
-        /// </summary>
-        /// <param name="predicate">The expression.</param>
-        /// <returns>True when an entity matching the predicate exists, false otherwise.</returns>
-        public virtual bool Exists(Expression<Func<TDocument, bool>> predicate)
-            => this._collection.AsQueryable().Any(predicate);
+		public virtual TEntity Find(Expression<Func<TEntity, bool>> predicate)
+		{
+			return Set.FirstOrDefault(predicate);
+		}
 
-        #region IQueryable<T>
-        /// <summary>
-        /// Returns an enumerator that iterates through a collection.
-        /// </summary>
-        /// <returns>An IEnumerator&lt;T&gt; object that can be used to iterate through the collection.</returns>
-        public virtual IEnumerator<TDocument> GetEnumerator()
-        {
-            return this._collection.AsQueryable().GetEnumerator();
-        }
+		public virtual TEntity Create(TEntity TEntity)
+		{
+			lock (_locker)
+			{
+				var newEntry = Set.Add(TEntity);
 
-        /// <summary>
-        /// Returns an enumerator that iterates through a collection.
-        /// </summary>
-        /// <returns>An IEnumerator object that can be used to iterate through the collection.</returns>
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this._collection.AsQueryable().GetEnumerator();
-        }
+				if (!shareContext)
+					Context.SaveChanges();
 
-        /// <summary>
-        /// Gets the type of the element(s) that are returned when the expression tree associated with this instance of IQueryable is executed.
-        /// </summary>
-        public virtual Type ElementType
-        {
-            get { return this._collection.AsQueryable().ElementType; }
-        }
+				return newEntry;
+			}
+		}
 
-        /// <summary>
-        /// Gets the expression tree that is associated with the instance of IQueryable.
-        /// </summary>
-        public virtual Expression Expression
-        {
-            get { return this._collection.AsQueryable().Expression; }
-        }
+		public int UpdateForceAttached(TEntity t)
+		{
+			var entry = Context.Entry(t);
+			entry.State = EntityState.Modified;
 
-        /// <summary>
-        /// Gets the query provider that is associated with this data source.
-        /// </summary>
-        public virtual IQueryProvider Provider
-        {
-            get { return this._collection.AsQueryable().Provider; }
-        }
-        #endregion
-    }
+			if (!shareContext)
+				return Context.SaveChanges();
 
-    public class Repository<TDocument> : Repository<TDocument, string>, IRepository<TDocument> where TDocument : IBaseMongoEntity
-    {
-        public Repository(IMongoContext context) : base(context) { }
-    }
+			return 0;
+		}
+
+		public virtual int Count
+		{
+			get
+			{
+				return Set.Count();
+			}
+		}
+
+		public int Delete(TEntity TEntity)
+		{
+			Set.Remove(TEntity);
+
+			if (!shareContext)
+				return Context.SaveChanges();
+
+			return 0;
+		}
+
+		public virtual int Update(TEntity TEntity)
+		{
+			if (Set.Find(TEntity.Id) == null)
+				Set.Attach(TEntity);
+
+			var entry = Context.Entry(TEntity);
+			entry.State = EntityState.Modified;
+
+			if (!shareContext)
+				return Context.SaveChanges();
+
+			return 0;
+		}
+
+		public virtual int Delete(Expression<Func<TEntity, bool>> predicate)
+		{
+			var objects = Filter(predicate);
+
+			foreach (var obj in objects)
+				Set.Remove(obj);
+
+			if (!shareContext)
+				return Context.SaveChanges();
+
+			return 0;
+		}
+
+		public virtual async Task<bool> DeleteAsyncAndSave(Expression<Func<TEntity, bool>> predicate)
+		{
+			try
+			{
+				var objects = Filter(predicate);
+
+				foreach (var obj in objects)
+					Set.Remove(obj);
+
+				await Context.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception ex)
+			{
+				// TODO: log ex
+				return false;
+			}
+		}
+
+		public IQueryable<TEntity> Include(params string[] includes)
+		{
+			var q = Context.Set<TEntity>() as IQueryable<TEntity>;
+
+			foreach (var include in includes)
+				q = q.Include(include);
+
+			return q;
+		}
+
+		public TEntity Create()
+		{
+			return Context.Set<TEntity>().Create();
+		}
+
+		public void InsertGraph(TEntity entity)
+		{
+			Set.Add(entity);
+		}
+
+		public TEntity FindById(object id, bool reload = false)
+		{
+			var entity = Set.Find(id);
+
+			if (entity != null && reload)
+			{
+				var entry = Context.Entry(entity);
+				entry.Reload();
+			}
+
+			return entity;
+		}
+
+		public TEntity FirstOrDefaultByIdAndInclude(Guid id, bool reload, params Expression<Func<TEntity, object>>[] includes)
+		{
+			var query = Set.AsQueryable();
+
+			if (includes != null)
+				foreach (var i in includes)
+					query = query.Include(i);
+
+			var entity = query.FirstOrDefault(x => x.Id == id);
+
+			if (entity != null && reload)
+				Context.Entry(entity).Reload();
+
+			return entity;
+		}
+
+		public TEntity FirstOrDefaultByIdAndInclude(Expression<Func<TEntity, bool>> predicate, bool reload, params Expression<Func<TEntity, object>>[] includes)
+		{
+			var query = Set.AsQueryable();
+
+			if (includes != null)
+				foreach (var i in includes)
+					query = query.Include(i);
+
+			var entity = query.FirstOrDefault(predicate);
+
+			if (entity != null && reload)
+				Context.Entry(entity).Reload();
+
+			return entity;
+		}
+
+		public bool HasAny(Expression<Func<TEntity, bool>> predicate)
+		{
+			lock (_locker)
+			{
+				return Set.Any(predicate);
+			}
+		}
+
+		public bool HasAll(Expression<Func<TEntity, bool>> predicate)
+		{
+			return Set.All(predicate);
+		}
+
+		public void Update(TEntity entity, params Expression<Func<TEntity, object>>[] properties)
+		{
+			var entry = Context.Entry(entity);
+			entry.State = EntityState.Unchanged;
+
+			// unwraps the entity properties to only update the sent properties
+			foreach (var property in properties)
+			{
+				string propertyName = property.GetPropertyName();
+				entry.Property(propertyName).IsModified = true;
+			}
+		}
+
+		public IOrderedQueryable<TEntity> FilterOrdered<OrderingType>(Expression<Func<TEntity, OrderingType>> orderBy, Expression<Func<TEntity, bool>> predicate = null, bool isOrderedDescending = false, bool asExpandable = false)
+		{
+			var query = Set.AsQueryable();
+
+			if (asExpandable)
+				query = query.AsExpandable();
+
+			if (predicate != null)
+				query = query.Where(predicate);
+
+			return isOrderedDescending ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+		}
+
+		public IQueryable<TEntity> FilterPage(IOrderedQueryable<TEntity> orderedQuery, out int total, int page = 1, int size = 24)
+		{
+			IQueryable<TEntity> query;
+
+			//If size is -1, return all
+			if (size == -1)
+			{
+				query = orderedQuery;
+			}
+			else
+			{
+				int skipCount = (page - 1) * size;
+				query = skipCount == 0 ? orderedQuery.Take(size) : orderedQuery.Skip(skipCount).Take(size);
+			}
+
+			total = orderedQuery.Count();
+
+			return query;
+		}
+
+		public IQueryable<TEntity> FilterOrderedPage<OrderingType>(Expression<Func<TEntity, OrderingType>> orderBy, out int total, int page = 1, int size = 24, bool isOrderedDescending = false, Expression<Func<TEntity, bool>> predicate = null, bool asExpandable = false)
+		{
+			return FilterPage(FilterOrdered(orderBy, predicate, isOrderedDescending, asExpandable), out total, page, size);
+		}
+
+		public IQueryable<TEntity> FilterOrderedWithSkip<OrderingType>(Expression<Func<TEntity, OrderingType>> orderBy, out int total, out int totalFiltered, int skip = 1, int size = 24, bool isOrderedDescending = false, Expression<Func<TEntity, bool>> accountPredicate = null, Expression<Func<TEntity, bool>> searchPredicate = null, bool asExpandable = false)
+		{
+			var query = Set.AsQueryable();
+
+			if (asExpandable)
+				query = query.AsExpandable();
+
+			if (accountPredicate != null)
+				query = query.Where(accountPredicate);
+
+			var _total = query.FutureCount();
+
+			if (searchPredicate != null)
+				query = query.Where(searchPredicate);
+
+			var _totalFiltered = query.FutureCount();
+
+			total = _total;
+			totalFiltered = _totalFiltered;
+
+			var orderedQuery = isOrderedDescending ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+
+			// if size is -1, return all
+			if (size == -1)
+				return orderedQuery;
+			else
+				return skip == 0 ? orderedQuery.Take(size) : orderedQuery.Skip(skip).Take(size);
+		}
+
+		public IQueryable<TEntity> FilterOrderedPageQueryable<OrderingType>(IQueryable<TEntity> query, Expression<Func<TEntity, OrderingType>> orderBy, out int total, int page = 1, int size = 24, bool isOrderedDescending = false, Expression<Func<TEntity, bool>> predicate = null)
+		{
+			if (predicate != null)
+				query = query.Where(predicate);
+
+			var orderedQuery = isOrderedDescending ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+
+			//If size is -1, return all
+			if (size == -1)
+			{
+				query = orderedQuery;
+			}
+			else
+			{
+				int skipCount = (page - 1) * size;
+				query = skipCount == 0 ? orderedQuery.Take(size) : orderedQuery.Skip(skipCount).Take(size);
+			}
+			total = orderedQuery.Count();
+
+			return query;
+		}
+
+		public async Task<TEntity> FirstOrDefaultAndIncludeAsync(Expression<Func<TEntity, bool>> predicate, bool reload = false, params Expression<Func<TEntity, object>>[] includes)
+		{
+			var query = Set.AsQueryable();
+
+			if (includes != null)
+				foreach (var i in includes)
+					query = query.Include(i);
+
+			var entity = await query.FirstOrDefaultAsync(predicate);
+
+			if (reload)
+				Context.Entry(entity).Reload();
+
+			return entity;
+		}
+
+		public async Task<bool> HasAnyAsync(Expression<Func<TEntity, bool>> predicate)
+		{
+			return await Set.AnyAsync(predicate);
+		}
+		public virtual async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate)
+		{
+			return await Set.FirstOrDefaultAsync(predicate);
+		}
+
+		public async Task<bool> CreateAndSaveAsync(TEntity entity)
+		{
+			try
+			{
+				Create(entity);
+				await Context.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception ex)
+			{
+				// TODO: log ex
+				return false;
+			}
+		}
+
+		public async Task<bool> UpdateAndSaveAsync(TEntity entity, params Expression<Func<TEntity, object>>[] properties)
+		{
+			try
+			{
+				Update(entity, properties);
+				await Context.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception ex)
+			{
+				// TODO: log ex
+				return false;
+			}
+		}
+
+		public async Task<TEntity> FirstOrDefaultByIdAndIncludeAsync(Guid id, bool reload, params Expression<Func<TEntity, object>>[] includes)
+		{
+			var query = Set.AsQueryable();
+
+			if (includes != null)
+				foreach (var i in includes)
+					query = query.Include(i);
+
+			var entity = await query.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (entity != null && reload)
+				await Context.Entry(entity).ReloadAsync();
+
+			return entity;
+		}
+
+		public async Task<TEntity> FirstOrDefaultByIdAsNoTrackingAndIncludeAsync(Guid id, bool reload, params Expression<Func<TEntity, object>>[] includes)
+		{
+			var query = Set.AsNoTracking();
+
+			if (includes != null)
+				foreach (var i in includes)
+					query = query.Include(i);
+
+			var entity = await query.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (entity != null && reload)
+				await Context.Entry(entity).ReloadAsync();
+
+			return entity;
+		}
+	}
 }

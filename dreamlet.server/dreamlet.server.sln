@@ -37,6 +37,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dreamlet.Composition", "dre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dreamlet.DatabaseInit", "dreamlet.DatabaseInit\dreamlet.DatabaseInit.csproj", "{DB56D1DB-7ECF-4AE9-9ABD-8D54D5AEF660}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution-Items", "Solution-Items", "{F97DCA3C-9D19-48B0-A109-E2164EF28156}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configs", "Configs", "{357E6404-4DA0-40C8-8070-F9EA213BD6DC}"
+	ProjectSection(SolutionItems) = preProject
+		dreamlet.Configs\cs-dev.config = dreamlet.Configs\cs-dev.config
+		dreamlet.Configs\cs-prod.config = dreamlet.Configs\cs-prod.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,5 +104,6 @@ Global
 		{0A4C79B6-836F-4C88-9462-783CA8F767C1} = {375FF299-F2A2-46B0-BE58-26438D9FB428}
 		{8BC3381E-C749-49D2-8F46-20F4DF22B528} = {D22A3E15-F759-499A-B09B-C35F0B6B5905}
 		{DB56D1DB-7ECF-4AE9-9ABD-8D54D5AEF660} = {438E78BD-FC38-45D6-9E5C-A178642A6B06}
+		{357E6404-4DA0-40C8-8070-F9EA213BD6DC} = {F97DCA3C-9D19-48B0-A109-E2164EF28156}
 	EndGlobalSection
 EndGlobal
