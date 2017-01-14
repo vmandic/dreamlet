@@ -1,22 +1,19 @@
 ﻿using dreamlet.BusinessLogicLayer.Services.Interfaces;
-using dreamlet.BusinessLogicLayer.Services.Providers;
+using dreamlet.Models.Transport.Base;
 using dreamlet.Models.Transport.DreamTerms;
-using DryIocAttributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace dreamlet.WebService.Controllers
 {
-    public class DreamTermsController : BaseController
-    {
+	[RoutePrefix("api/v1/dream-terms")]
+	public class DreamTermsController : BaseController
+	{
 		[Import]
-		public Func<IDreamTermsService> DreamStoriesService { get; set; }
+		public Func<IDreamTermsService> DreamTermsService { get; set; }
 
 		public DreamTermsController()
 		{
@@ -24,15 +21,18 @@ namespace dreamlet.WebService.Controllers
 		}
 
 		[HttpGet]
-		public IHttpActionResult GetAllDreamTermLetterGroups()
-		{
-			if (DreamStoriesService != null)
-			{
-				var allDreamTerms = DreamStoriesService().GetAllDreamTerms();
-				return Ok(allDreamTerms);
-			}
+		[Route("letter/{letterChar:alpha:maxlength(1)}")]
+		public async Task<BaseJsonResponse<List<DreamTermModel>>> GetLetterGroupDreamTerms(string letterChar)
+			=> BaseJsonResponse.Create(await DreamTermsService().GetLetterGroupDreamTerms(letterChar[0]));
 
-			return Ok("failed");
-		}
-    }
+		[HttpGet]
+		[Route("term/{termString}")]
+		public async Task<BaseJsonResponse<DreamTermWithExplanationsModel>> GetDreamTerm(string termString)
+			=> BaseJsonResponse.Create(await DreamTermsService().GetDreamTerm(termString));
+
+		[HttpGet]
+		[Route("term/id/{termId}")]
+		public async Task<BaseJsonResponse<DreamTermWithExplanationsModel>> GetDreamTermById(Guid termId)
+			=> BaseJsonResponse.Create(await DreamTermsService().GetDreamTermById(termId));
+	}
 }

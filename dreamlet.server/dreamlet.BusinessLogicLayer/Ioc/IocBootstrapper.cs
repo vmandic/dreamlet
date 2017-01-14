@@ -1,19 +1,22 @@
 ﻿using dreamlet.BusinessLogicLayer.Services.Interfaces;
-using dreamlet.BusinessLogicLayer.Services.Providers;
-using dreamlet.DataAccessLayer.MongoDbContext;
+using dreamlet.DataAccessLayer.EfDbContext;
 using DryIoc;
+using DryIoc.MefAttributedModel;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace dreamlet.BusinessLogicLayer.Ioc
 {
-    public class IocBootstrapper
-    {
-        public static IContainer RegisterDependencies(IContainer container)
-        {
-            container.Register<IDreamTermsService, DreamTermsService>(Reuse.InWebRequest);
-            container.Register<IDreamStoriesService, DreamStoriesService>(Reuse.InWebRequest);
-			container.Register<IMongoContext, DreamletMongoContext>(Reuse.Singleton);
+	public class IocBootstrapper
+	{
+		public static IContainer RegisterDependencies(IContainer container)
+		{
+			container.RegisterExports(new List<Assembly> {
+				typeof(DreamletEfContext).GetTypeInfo().Assembly,
+				typeof(IDreamTermsService).GetTypeInfo().Assembly
+			});
 
-            return container;
-        }
-    }
+			return container;
+		}
+	}
 }

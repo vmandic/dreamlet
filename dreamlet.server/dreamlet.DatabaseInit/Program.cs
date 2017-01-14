@@ -1,15 +1,10 @@
-﻿using dreamlet.DataAccessLayer.Entities.Models;
-using dreamlet.DataAccessLayer.MongoDbContext;
+﻿using dreamlet.DataAccessLayer.EfDbContext;
+using dreamlet.DataAccessLayer.Entities.Models;
 using dreamlet.DataAccessLayer.Repository;
-using dreamlet.DatabaseInit.ImportModels;
 using dreamlet.Utilities;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
 using System.Linq;
 
 namespace dreamlet.DatabaseInit
@@ -26,6 +21,7 @@ namespace dreamlet.DatabaseInit
 
 		// Admin
 		static string ADMIN_EMAIL = "admin@dreamlet.me";
+		private static RepositoryFactory _repoFactory;
 
 		static void Main(string[] args)
 		{
@@ -34,114 +30,131 @@ namespace dreamlet.DatabaseInit
 			_TryInsertUserAdmin();
 			_TryInsertLanguages();
 			_TryInsertDreamTermsScrape1();
+
+			Console.WriteLine("DONE!");
+			Console.ReadKey();
 		}
 
 		static void _SetupImporter()
 		{
-			var dbcs = ConfigurationManager.ConnectionStrings["cs"].ToString();
-			var mongoClient = new MongoClient(dbcs);
-			var settings = mongoClient.Settings;
-			var dbContext = new DreamletMongoContext(settings);
-			var repositoryFactory = new RepositoryFactory(dbContext);
+			_repoFactory = new RepositoryFactory(new DreamletEfContext());
 
-			_DreamTermRepository = repositoryFactory.Get<DreamTerm>();
-			_LanguageRepository = repositoryFactory.Get<Language>();
-			_UserRepository = repositoryFactory.Get<User>();
+			_LanguageRepository = _repoFactory.Get<Language>();
+			_DreamTermRepository = _repoFactory.Get<DreamTerm>();
+			_UserRepository = _repoFactory.Get<User>();
 		}
-
-		static Meta _NewMeta(string id) => new Meta()
-		{
-			CreatedAt = DateTime.UtcNow,
-			UpdatedAt = DateTime.UtcNow,
-			CreatedByUserId = id,
-			UpdatedByUserId = id
-		};
 
 		static void _TryInsertLanguages()
 		{
-			Debug.WriteLine("INSERTING LANGUAGES...");
+			Console.WriteLine("INSERTING LANGUAGES...");
 
-			var adminUser = _UserRepository.Where(x => x.Email == ADMIN_EMAIL).FirstOrDefault();
+			var adminUser = _UserRepository.Set.Where(x => x.Email == ADMIN_EMAIL).FirstOrDefault();
 
 			// English en-US
-			if (!_LanguageRepository.Any(x => x.Code == EN_US))
+			if (!_LanguageRepository.HasAny(x => x.InternationalCode == EN_US))
 			{
-				_LanguageRepository.Add(new Language()
+				var savedEnUs = _LanguageRepository.CreateAndSaveAsync(new Language()
 				{
-					Code = "en-US",
-					Meta = _NewMeta(adminUser.Id)
-				});
-				Debug.WriteLine($"Inserted \"{EN_US}\" language.");
+					InternationalCode = EN_US
+				}).Result;
+
+				if (savedEnUs)
+					Console.WriteLine($"Inserted \"{EN_US}\" language.");
+				else
+					throw new Exception("Did not insert en-us language. Saving returned false.");
 			}
 			else
-				Debug.WriteLine($"\"{EN_US}\" language already exists, skipping.");
+				Console.WriteLine($"\"{EN_US}\" language already exists, skipping.");
 
 			// Croatian hr-HR
-			if (!_LanguageRepository.Any(x => x.Code == HR_HR))
+			if (!_LanguageRepository.HasAny(x => x.InternationalCode == HR_HR))
 			{
-				_LanguageRepository.Add(new Language()
+				var savedHrHr = _LanguageRepository.CreateAndSaveAsync(new Language()
 				{
-					Code = HR_HR,
-					Meta = _NewMeta(adminUser.Id)
-				});
-				Debug.WriteLine($"Inserted \"{HR_HR}\" language.");
+					InternationalCode = HR_HR
+				}).Result;
+
+				if (savedHrHr)
+					Console.WriteLine($"Inserted \"{HR_HR}\" language.");
+				else
+					throw new Exception("Did not insert hr-hr language. Saving returned false.");
 			}
 			else
-				Debug.WriteLine($"\"{HR_HR}\" language already exists, skipping.");
+				Console.WriteLine($"\"{HR_HR}\" language already exists, skipping.");
 
 		}
 
 		static void _TryInsertUserAdmin()
 		{
-			Debug.WriteLine("INSERTING USER ADMIN...");
+			Console.WriteLine("INSERTING USER ADMIN...");
 
-			if (!_UserRepository.Any(x => x.Email == ADMIN_EMAIL))
+			if (!_UserRepository.HasAny(x => x.Email == ADMIN_EMAIL))
 			{
-				var id = ObjectId.GenerateNewId(DateTime.UtcNow.AddDays(1)).ToString();
-
-				_UserRepository.Add(new User()
+				var saved = _UserRepository.CreateAndSaveAsync(new User()
 				{
-					Id = id,
 					Email = ADMIN_EMAIL,
-					Meta = _NewMeta(id),
 					PasswordHash = "0",
-					Role = DreamletRoles.Admin.ToString()
-				});
+					Role = DreamletRole.Admin
+				}).Result;
 
-				Debug.WriteLine($"Inserted admin user with id: \"{id}\"");
+				if (saved)
+					Console.WriteLine($"Inserted admin user with id: \"{_UserRepository.Set.First().Id}\"");
+				else
+					throw new Exception("Did not insert admin user. Saving returned false.");
 			}
 			else
-				Debug.WriteLine("Admin user already exists, skipping.");
+				Console.WriteLine("Admin user already exists, skipping.");
 		}
 
 		static void _TryInsertDreamTermsScrape1()
 		{
-			Debug.WriteLine("INSERTING DREAM TERMS SCRAPE 1...");
+			Console.WriteLine("INSERTING DREAM TERMS SCRAPE 1...");
 
 			string json = System.IO.File.ReadAllText(@"Scrapes/dream-scrape1-take2-formatted.json");
 			var obj = JsonConvert.DeserializeObject<IEnumerable<JsonDreamTerm>>(json);
 
-			var engLang = _LanguageRepository.Where(x => x.Code == EN_US).FirstOrDefault();
-			var adminUser = _UserRepository.Where(x => x.Email == ADMIN_EMAIL).FirstOrDefault();
+			var engLang = _LanguageRepository.Find(x => x.InternationalCode == EN_US);
+			var adminUser = _UserRepository.Find(x => x.Email == ADMIN_EMAIL);
 
 			var dreamTerms = obj.Select(x => new DreamTerm
 			{
 				LanguageId = engLang.Id,
-				Meta = _NewMeta(adminUser.Id),
 				Term = x.Name.Replace("|", "\'"), // replace due to import formatting hack
-				Explanations = x.Explanations.Select(explanation => new DreamExplanation { Explanation = explanation.Replace("|", "\'") }) // replace due to import formatting hack
+				DreamExplanations = x.Explanations.Select(explanation => 
+					new DreamExplanation {
+						Explanation = explanation.Replace("|", "\'") // replace due to import formatting hack
+					}).ToList() 
 			}).ToList();
 
 			// NOTE: Term "Armpit" imported with error.
-			dreamTerms.ForEach(dt => {
-				if (!_DreamTermRepository.Any(x => x.Term == dt.Term))
-				{
-					Debug.WriteLine($"Inserting term \"{dt.Term}\" with {dt.Explanations.Count()} explanation(s).");
-					_DreamTermRepository.Add(dt);
-				}
-				else
-					Debug.WriteLine($"Dream term \"{dt.Term}\" already exists, skipping.");
+			dreamTerms.AsParallel().ForAll(dt =>
+			{
+				//if (!_DreamTermRepository.HasAny(x => x.Term == dt.Term))
+				//{
+					Console.WriteLine($"Inserting term \"{dt.Term}\" with {dt.DreamExplanations.Count()} explanation(s).");
+					_DreamTermRepository.Create(dt);
+				//}
+				//else
+				//	Console.WriteLine($"Dream term \"{dt.Term}\" already exists, skipping.");
 			});
+
+			try
+			{
+				_repoFactory.DreamletContext.SaveChanges();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
 		}
+	}
+
+	internal class JsonDreamTerm
+	{
+		[JsonProperty("name")]
+		public string Name { get; set; }
+
+		[JsonProperty("explanations")]
+		public IEnumerable<string> Explanations { get; set; }
 	}
 }
