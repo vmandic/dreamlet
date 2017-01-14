@@ -12,6 +12,6 @@ dl
 /dreamlet.server/*/cs-prod.config
 /notes
 /dreamlet.server/TestResults
-*/dreamlet.Utilities/Scrapes
+/dreamlet.server/*/Scrapes
 *.user
 /dreamlet.server/.vs/config
