@@ -46,6 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configs", "Configs", "{357E
 	ProjectSection(SolutionItems) = preProject
 		dreamlet.Configs\cs-dev.config = dreamlet.Configs\cs-dev.config
 		dreamlet.Configs\cs-prod.config = dreamlet.Configs\cs-prod.config
+		dreamlet.Configs\settings-secret.config = dreamlet.Configs\settings-secret.config
 	EndProjectSection
 EndProject
 Global

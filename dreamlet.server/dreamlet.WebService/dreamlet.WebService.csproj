@@ -179,17 +179,17 @@
   <ItemGroup>
     <Content Include="..\dreamlet.Configs\cs-dev.config">
       <Link>cs-dev.config</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\dreamlet.Configs\cs-prod.config">
-      <Link>cs-prod.config</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web-Secrets.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <Content Include="..\dreamlet.Configs\cs-prod.config">
+      <Link>cs-prod.config</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\dreamlet.Configs\settings-secret.config">
+      <Link>settings-secret.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <PropertyGroup>

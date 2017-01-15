@@ -15,4 +15,4 @@ dl
 Scrapes
 cs-dev.config
 cs-prod.config
-Web-Secrets.config
+settings-secret.config
