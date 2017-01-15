@@ -10,8 +10,6 @@ namespace dreamlet.DataAccessLayer.Repository
 {
 	public interface IRepository<TEntity> : IDisposable where TEntity : class, IBaseEntity
 	{
-		DreamletEfContext Context { get; set; }
-
 		IDbSet<TEntity> Set { get; set; }
 
 		bool HasAny(Expression<Func<TEntity, bool>> predicate);

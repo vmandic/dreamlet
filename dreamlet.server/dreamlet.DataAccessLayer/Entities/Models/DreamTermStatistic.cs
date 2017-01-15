@@ -10,7 +10,7 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 
 		}
 
-		public Guid DreamTermId { get; set; }
+		public int DreamTermId { get; set; }
 		public long VisitCount { get; set; }
 		public long LikeCount { get; set; }
 		public virtual DreamTerm DreamTerm { get; set; }

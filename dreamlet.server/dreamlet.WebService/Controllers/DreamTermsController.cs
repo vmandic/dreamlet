@@ -2,6 +2,7 @@
 using dreamlet.Models;
 using dreamlet.Models.Transport.Base;
 using dreamlet.Models.Transport.DreamTerms;
+using dreamlet.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -59,7 +60,7 @@ namespace dreamlet.WebService.Controllers
 
 		[HttpGet]
 		[Route("id/{termId}")]
-		public async Task<BaseJsonResponse<DreamTermWithExplanationsModel>> GetDreamTermById(Guid termId)
-			=> BaseJsonResponse.Create(await DreamTermsService().GetDreamTermById(termId));
+		public async Task<BaseJsonResponse<DreamTermWithExplanationsModel>> GetDreamTermById(string termId)
+			=> BaseJsonResponse.Create(await DreamTermsService().GetDreamTermById(DreamletCrypto.DecryptToInt(termId)));
 	}
 }

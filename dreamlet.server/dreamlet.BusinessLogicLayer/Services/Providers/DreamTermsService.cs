@@ -24,31 +24,29 @@ namespace dreamlet.BusinessLogicLayer.Services.Providers
 
 		public Task<List<DreamTermModel>> FindDreamTerms(string searchTerm, int howMany = 10)
 			=> (from st in searchTerm.ToLowerInvariant().Trim()
-			 let lowerSearchTerm = st.ToString()
-			 select R<DreamTerm>()
-				 .FilterActive(x => x.Term.ToLower().Trim().Contains(lowerSearchTerm))
-				 .Take(howMany)
-				 .Select(x => new DreamTermModel
-				 {
-					 Name = x.Term,
-					 DreamTermId = x.Id
-				 }).ToListAsync()
-				).FirstOrDefault();
+			    let lowerSearchTerm = st.ToString()
+			    select R<DreamTerm>()
+			   	 .FilterActive(x => x.Term.ToLower().Trim().StartsWith(lowerSearchTerm))
+			   	 .OrderByDescending(x => x.Term)
+			   	 .Take(howMany)
+			   	 .Select(x => new DreamTermModel
+			   	 {
+			   		 Name = x.Term,
+			   		 DreamTermId = x.Id
+			   	 }).ToListAsync()
+			   	).FirstOrDefault();
 
 		public Task<DreamTermWithExplanationsModel> GetDreamTerm(string termString)
-			=> (from ts in termString.ToLowerInvariant().Trim()
-				let lowerTerm = ts.ToString()
-				select R<DreamTerm>()
-					.Filter(x => x.Term.ToLower().Trim() == lowerTerm)
-					.Select(x => new DreamTermWithExplanationsModel
-					{
-						DreamTermId = x.Id,
-						Name = x.Term,
-						Explanations = x.DreamExplanations.Select(de => de.Explanation)
-					}).FirstOrDefaultAsync()
-				).FirstOrDefault();
+			=> R<DreamTerm>()
+				.FilterActive(x => x.Term.ToLower().Trim() == termString.ToLower().Trim())
+				.Select(x => new DreamTermWithExplanationsModel
+				{
+					DreamTermId = x.Id,
+					Name = x.Term,
+					Explanations = x.DreamExplanations.Select(de => de.Explanation)
+				}).FirstOrDefaultAsync();
 
-		public Task<DreamTermWithExplanationsModel> GetDreamTermById(Guid id)
+		public Task<DreamTermWithExplanationsModel> GetDreamTermById(int id)
 			=> R<DreamTerm>()
 			.FilterActive(x => x.Id == id)
 			.Select(x => new DreamTermWithExplanationsModel

@@ -12,6 +12,13 @@ namespace dreamlet.DataAccessLayer.UnitOfWork
 
 		private DreamletEfContext _context;
 
+		public UnitOfWork(DreamletEfContext context = null)
+		{
+			if (context != null)
+				_context = context;
+
+		}
+
 		[Import]
 		public DreamletEfContext DreamletContext
 		{

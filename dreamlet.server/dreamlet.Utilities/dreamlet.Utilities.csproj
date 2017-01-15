@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DreamletCrypto.cs" />
     <Compile Include="DreamletExtensions.cs" />
     <Compile Include="DreamletHasher.cs" />
     <Compile Include="DreamletLogger.cs" />
@@ -54,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\Elmah.txt" />
-    <Content Include="Scripts\createTestAdmin.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -11,7 +11,7 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 			this.DreamExplanations = new List<DreamExplanation>();
 			this.DreamTermTags = new List<DreamTermTag>();
 		}
-		public Guid LanguageId { get; set; }
+		public int LanguageId { get; set; }
 		public string Term { get; set; }
 
 		public virtual Language Language { get; set; }

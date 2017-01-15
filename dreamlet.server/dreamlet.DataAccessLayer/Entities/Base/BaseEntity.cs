@@ -13,12 +13,13 @@ namespace dreamlet.DataAccessLayer.Entities.Base
 
 		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime CreatedAtUtc { get; set; }
+
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public Guid Uid { get; set; }
+
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
-		public Guid Id { get; set; }
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int SequenceId { get; set; }
+		public int Id { get; set; }
 
 		[Timestamp]
 		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
@@ -30,7 +31,7 @@ namespace dreamlet.DataAccessLayer.Entities.Base
 		public BaseEntityMapping()
 		{
 			this.Property(x => x.Id).HasColumnOrder(1);
-			this.Property(x => x.SequenceId).HasColumnOrder(2);
+			this.Property(x => x.Uid).HasColumnOrder(2);
 			this.Property(x => x.ActiveState).HasColumnOrder(3);
 			this.Property(x => x.CreatedAtUtc).HasColumnOrder(4);
 			this.Property(x => x.RowVersion).HasColumnOrder(5);

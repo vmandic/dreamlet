@@ -74,17 +74,9 @@
     <Compile Include="Entities\Models\DreamExplanation.cs" />
     <Compile Include="Entities\Models\Language.cs" />
     <Compile Include="Entities\Models\User.cs" />
-    <Compile Include="Migrations\201701011751011_init.cs" />
-    <Compile Include="Migrations\201701011751011_init.Designer.cs">
-      <DependentUpon>201701011751011_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701132214300_m1-added-DreamTermStatistic.cs" />
-    <Compile Include="Migrations\201701132214300_m1-added-DreamTermStatistic.Designer.cs">
-      <DependentUpon>201701132214300_m1-added-DreamTermStatistic.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701142322312_m2_AddColumn_LikeCount_ToTable_DreamTermStatistic_And_Default_Values.cs" />
-    <Compile Include="Migrations\201701142322312_m2_AddColumn_LikeCount_ToTable_DreamTermStatistic_And_Default_Values.Designer.cs">
-      <DependentUpon>201701142322312_m2_AddColumn_LikeCount_ToTable_DreamTermStatistic_And_Default_Values.cs</DependentUpon>
+    <Compile Include="Migrations\201701151142050_m1_initial.cs" />
+    <Compile Include="Migrations\201701151142050_m1_initial.Designer.cs">
+      <DependentUpon>201701151142050_m1_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,14 +106,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701011751011_init.resx">
-      <DependentUpon>201701011751011_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701132214300_m1-added-DreamTermStatistic.resx">
-      <DependentUpon>201701132214300_m1-added-DreamTermStatistic.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701142322312_m2_AddColumn_LikeCount_ToTable_DreamTermStatistic_And_Default_Values.resx">
-      <DependentUpon>201701142322312_m2_AddColumn_LikeCount_ToTable_DreamTermStatistic_And_Default_Values.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701151142050_m1_initial.resx">
+      <DependentUpon>201701151142050_m1_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

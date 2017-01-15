@@ -5,8 +5,8 @@ namespace dreamlet.DataAccessLayer.Entities.Base
 {
 	public interface IBaseEntity
 	{
-		Guid Id { get; set; }
-		int SequenceId { get; set; }
+		Guid Uid { get; set; }
+		int Id { get; set; }
 		DateTime CreatedAtUtc { get; set; }
 		ActiveState ActiveState { get; set; }
 		byte[] RowVersion { get; set; }

@@ -7,6 +7,7 @@ using dreamlet.Models.Transport.DreamTerms;
 using DryIoc;
 using DryIoc.MefAttributedModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,15 +59,52 @@ namespace dreamlet.Generic.Services.Tests
 		}
 
 		[TestMethod]
-		public void Should_fetch_letter_c_search_results()
+		public async Task Should_fetch_letter_c_search_results()
 		{
 			string term = "c";
-			List<DreamTermModel> dreams = DreamTermsService.FindDreamTerms(term).Result;
+			List<DreamTermModel> dreams = await DreamTermsService.FindDreamTerms(term);
 
 			// ASSERT
 			Assert.IsNotNull(dreams);
 			Assert.IsTrue(dreams.Count > 0);
 			Assert.IsFalse(dreams.Any(x => x.Name.ToLower().First() != term.First()));
+		}
+
+		[TestMethod]
+		public async Task Should_fetch_dream_term_by_id()
+		{
+			Random r = new Random();
+			int id = r.Next(1, 6305); // at the moment of writing 6305 is the latest sequential id
+
+			// ACT
+			DreamTermModel dream = await DreamTermsService.GetDreamTermById(id);
+
+			// ASSERT
+			Assert.IsNotNull(dream);
+			Assert.AreEqual(id, dream.DreamTermId);
+
+		}
+
+		[TestMethod]
+		public async Task Should_fetch_top_liked_dreams()
+		{
+			List<DreamTermStatisticModel> dreams = await DreamTermsService.GetTopLikedDreamTermsByAccess(Models.AccessFilter.General, 25);
+
+			// ASSERT
+			Assert.IsNotNull(dreams);
+			Assert.IsTrue(dreams.Count > 0);
+			Assert.IsTrue(dreams.Count == 25);
+		}
+
+		[TestMethod]
+		public async Task Should_fetch_top_read_dreams()
+		{
+			List<DreamTermStatisticModel> dreams = await DreamTermsService.GetTopReadDreamTerms(25);
+
+			// ASSERT
+			Assert.IsNotNull(dreams);
+			Assert.IsTrue(dreams.Count > 0);
+			Assert.IsTrue(dreams.Count == 25);
 		}
 	}
 }

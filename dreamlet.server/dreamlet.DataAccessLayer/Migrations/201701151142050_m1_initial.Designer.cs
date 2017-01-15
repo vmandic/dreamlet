@@ -7,13 +7,13 @@ namespace dreamlet.DataAccessLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class m1addedDreamTermStatistic : IMigrationMetadata
+    public sealed partial class m1_initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(m1addedDreamTermStatistic));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(m1_initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701132214300_m1-added-DreamTermStatistic"; }
+            get { return "201701151142050_m1_initial"; }
         }
         
         string IMigrationMetadata.Source
