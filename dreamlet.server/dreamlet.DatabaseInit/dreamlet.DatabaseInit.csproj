@@ -73,6 +73,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <None Include="Scrapes\dream-scrape1-formatted.json" />
+    <None Include="Scrapes\dream-scrape1-take2-formatted.json" />
+    <None Include="Scrapes\dream-scrape1-take2.json" />
+    <None Include="Scrapes\dream-scrape1.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dreamlet.BusinessLogicLayer\dreamlet.BusinessLogicLayer.csproj">
@@ -96,9 +100,7 @@
       <Name>dreamlet.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scrapes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
