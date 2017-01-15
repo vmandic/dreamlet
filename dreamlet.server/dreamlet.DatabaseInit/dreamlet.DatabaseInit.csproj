@@ -111,6 +111,10 @@
       <Project>{78555352-e0ec-4532-abd0-88ff29f5782e}</Project>
       <Name>dreamlet.DataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\dreamlet.Models\dreamlet.Models.csproj">
+      <Project>{D1F4D119-E6E1-4D0A-821A-8254F9E98CFC}</Project>
+      <Name>dreamlet.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dreamlet.Utilities\dreamlet.Utilities.csproj">
       <Project>{87cd6fba-6917-4a06-8988-77086e967790}</Project>
       <Name>dreamlet.Utilities</Name>

@@ -1,5 +1,6 @@
 ﻿using dreamlet.DataAccessLayer.EfDbContext;
 using dreamlet.DataAccessLayer.Entities.Base;
+using dreamlet.Models;
 using dreamlet.Utilities;
 using EntityFramework.Extensions;
 using LinqKit;
@@ -420,5 +421,8 @@ namespace dreamlet.DataAccessLayer.Repository
 
 			return entity;
 		}
+
+		public IQueryable<TEntity> FilterActive(Expression<Func<TEntity, bool>> predicate = null)
+			=> predicate == null ? Filter(x => x.ActiveState == ActiveState.Active) : Filter(x => x.ActiveState == ActiveState.Active).Where(predicate);
 	}
 }

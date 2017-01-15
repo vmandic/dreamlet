@@ -1,9 +1,5 @@
 ﻿using dreamlet.DataAccessLayer.Entities.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace dreamlet.DataAccessLayer.Entities.Models
 {
@@ -11,11 +7,12 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 	{
 		public DreamTermStatistic()
 		{
-				
+
 		}
 
 		public Guid DreamTermId { get; set; }
 		public long VisitCount { get; set; }
+		public long LikeCount { get; set; }
 		public virtual DreamTerm DreamTerm { get; set; }
 	}
 

@@ -1,4 +1,4 @@
-﻿using dreamlet.Utilities;
+﻿using dreamlet.Models;
 using System;
 
 namespace dreamlet.DataAccessLayer.Entities.Base

@@ -1,7 +1,7 @@
 ﻿using dreamlet.DataAccessLayer.EfDbContext;
 using dreamlet.DataAccessLayer.Entities.Models;
 using dreamlet.DataAccessLayer.Repository;
-using dreamlet.Utilities;
+using dreamlet.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

@@ -1,11 +1,12 @@
 namespace dreamlet.DataAccessLayer.Migrations
 {
+	using Models;
 	using System;
 	using System.Collections.Generic;
 	using System.Data.Entity.Migrations;
 	using System.Data.Entity.Migrations.Design;
 	using System.Data.Entity.Migrations.Model;
-	using Utilities;
+
 	internal sealed class Configuration : DbMigrationsConfiguration<dreamlet.DataAccessLayer.EfDbContext.DreamletEfContext>
 	{
 		public Configuration()

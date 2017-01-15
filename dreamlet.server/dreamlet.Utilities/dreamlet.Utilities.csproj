@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DreamletEnums.cs" />
     <Compile Include="DreamletExtensions.cs" />
     <Compile Include="DreamletHasher.cs" />
     <Compile Include="DreamletLogger.cs" />

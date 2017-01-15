@@ -1,5 +1,5 @@
 ﻿using dreamlet.DataAccessLayer.Entities.Base;
-using dreamlet.Utilities;
+using dreamlet.Models;
 
 namespace dreamlet.DataAccessLayer.Entities.Models
 {

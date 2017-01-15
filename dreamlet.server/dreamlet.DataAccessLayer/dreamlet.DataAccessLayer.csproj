@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201701132214300_m1-added-DreamTermStatistic.Designer.cs">
       <DependentUpon>201701132214300_m1-added-DreamTermStatistic.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701142322312_m2_AddColumn_LikeCount_ToTable_DreamTermStatistic_And_Default_Values.cs" />
+    <Compile Include="Migrations\201701142322312_m2_AddColumn_LikeCount_ToTable_DreamTermStatistic_And_Default_Values.Designer.cs">
+      <DependentUpon>201701142322312_m2_AddColumn_LikeCount_ToTable_DreamTermStatistic_And_Default_Values.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />
@@ -100,6 +104,10 @@
       <Project>{8BC3381E-C749-49D2-8F46-20F4DF22B528}</Project>
       <Name>dreamlet.Composition</Name>
     </ProjectReference>
+    <ProjectReference Include="..\dreamlet.Models\dreamlet.Models.csproj">
+      <Project>{d1f4d119-e6e1-4d0a-821a-8254f9e98cfc}</Project>
+      <Name>dreamlet.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dreamlet.Utilities\dreamlet.Utilities.csproj">
       <Project>{87cd6fba-6917-4a06-8988-77086e967790}</Project>
       <Name>dreamlet.Utilities</Name>
@@ -111,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701132214300_m1-added-DreamTermStatistic.resx">
       <DependentUpon>201701132214300_m1-added-DreamTermStatistic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701142322312_m2_AddColumn_LikeCount_ToTable_DreamTermStatistic_And_Default_Values.resx">
+      <DependentUpon>201701142322312_m2_AddColumn_LikeCount_ToTable_DreamTermStatistic_And_Default_Values.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
