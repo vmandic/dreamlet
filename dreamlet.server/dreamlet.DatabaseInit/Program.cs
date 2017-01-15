@@ -1,19 +1,24 @@
 ﻿using dreamlet.DataAccessLayer.EfDbContext;
 using dreamlet.DataAccessLayer.Entities.Models;
 using dreamlet.DataAccessLayer.Repository;
-using dreamlet.Utilities;
+using dreamlet.DataAccessLayer.UnitOfWork;
+using dreamlet.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace dreamlet.DatabaseInit
 {
 	class Program
 	{
-		static IRepository<Language> _LanguageRepository { get; set; }
-		static IRepository<DreamTerm> _DreamTermRepository { get; set; }
-		static IRepository<User> _UserRepository { get; set; }
+		private static IRepository<Language> _LanguageRepository { get; set; }
+		private static IRepository<DreamTerm> _DreamTermRepository { get; set; }
+		private static IRepository<User> _UserRepository { get; set; }
+		private static IRepositoryFactory _repoFactory;
+		private static IUnitOfWork _uow;
 
 		// Language cultures
 		static string EN_US = "en-US";
@@ -21,7 +26,6 @@ namespace dreamlet.DatabaseInit
 
 		// Admin
 		static string ADMIN_EMAIL = "admin@dreamlet.me";
-		private static RepositoryFactory _repoFactory;
 
 		static void Main(string[] args)
 		{
@@ -29,15 +33,16 @@ namespace dreamlet.DatabaseInit
 
 			_TryInsertUserAdmin();
 			_TryInsertLanguages();
-			_TryInsertDreamTermsScrape1();
+			_WriteInsertionScriptToFile();
 
 			Console.WriteLine("DONE!");
-			Console.ReadKey();
 		}
 
 		static void _SetupImporter()
 		{
-			_repoFactory = new RepositoryFactory(new DreamletEfContext());
+			var ctx = new DreamletEfContext();
+			_repoFactory = new RepositoryFactory(ctx);
+			_uow = new UnitOfWork();
 
 			_LanguageRepository = _repoFactory.Get<Language>();
 			_DreamTermRepository = _repoFactory.Get<DreamTerm>();
@@ -106,12 +111,14 @@ namespace dreamlet.DatabaseInit
 				Console.WriteLine("Admin user already exists, skipping.");
 		}
 
-		static void _TryInsertDreamTermsScrape1()
+		static void _WriteInsertionScriptToFile()
 		{
 			Console.WriteLine("INSERTING DREAM TERMS SCRAPE 1...");
 
 			string json = System.IO.File.ReadAllText(@"Scrapes/dream-scrape1-take2-formatted.json");
 			var obj = JsonConvert.DeserializeObject<IEnumerable<JsonDreamTerm>>(json);
+
+			Console.WriteLine("Scrape loaded, fetching language and admin user...");
 
 			var engLang = _LanguageRepository.Find(x => x.InternationalCode == EN_US);
 			var adminUser = _UserRepository.Find(x => x.Email == ADMIN_EMAIL);
@@ -126,26 +133,48 @@ namespace dreamlet.DatabaseInit
 					}).ToList() 
 			}).ToList();
 
+			Console.WriteLine("Saving to database, building insertion script...");
+			_uow.DreamletContext.Database.Log = Console.WriteLine;
+
+			StringBuilder sb = new StringBuilder();
+
 			// NOTE: Term "Armpit" imported with error.
-			dreamTerms.AsParallel().ForAll(dt =>
+			int iter = 1;
+
+			dreamTerms.ForEach(dt =>
 			{
-				//if (!_DreamTermRepository.HasAny(x => x.Term == dt.Term))
-				//{
-					Console.WriteLine($"Inserting term \"{dt.Term}\" with {dt.DreamExplanations.Count()} explanation(s).");
-					_DreamTermRepository.Create(dt);
-				//}
-				//else
-				//	Console.WriteLine($"Dream term \"{dt.Term}\" already exists, skipping.");
+				var term = dt.Term.Replace("\'", "''");
+
+				sb.AppendLine("GO");
+				sb.AppendLine($"INSERT INTO DreamTerm (Term, LanguageId) VALUES ('{term}', {dt.LanguageId})");
+
+				if (dt.DreamExplanations.Count > 0)
+				{
+					sb.AppendLine("DECLARE @dtid int = SCOPE_IDENTITY()");
+					sb.AppendLine("INSERT INTO DreamExplanation (Explanation, DreamTermId) VALUES");
+
+					dt.DreamExplanations.ToList().ForEach(de => sb.AppendLine($"('{de.Explanation.Replace("\'", "''")}', @dtid),"));
+
+					// remove trailing commma
+					var str = sb.ToString();
+					sb = new StringBuilder(str.Remove(str.Length - 3, 1));
+					sb.AppendLine($@"PRINT 'TERM: {term} -> NUM: {iter++}/{dreamTerms.Count}'");
+					sb.AppendLine("");
+				}				
 			});
 
-			try
-			{
-				_repoFactory.DreamletContext.SaveChanges();
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			sb.AppendLine
+			(@"
+				INSERT INTO DreamTermStatistic (DreamTermId, VisitCount, LikeCount)
+					SELECT
+						dt.Id,
+						0,
+						0
+						FROM DreamTerm dt
+			");
+
+			string script = sb.ToString();
+			File.WriteAllText("script.sql", script);
 		}
 	}
 

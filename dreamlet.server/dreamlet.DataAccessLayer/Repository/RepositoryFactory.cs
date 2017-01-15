@@ -21,7 +21,7 @@ namespace dreamlet.DataAccessLayer.Repository
 				DreamletContext = context;
 		}
 
-		public IRepository<TEntity> Get<TEntity>(DreamletEfContext context = null) where TEntity : class, IBaseEntity
+		public IRepository<TEntity> Get<TEntity>() where TEntity : class, IBaseEntity
 		{
 			lock (_locker)
 			{
@@ -31,7 +31,7 @@ namespace dreamlet.DataAccessLayer.Repository
 				var type = typeof(TEntity).Name;
 
 				if (!_repositories.ContainsKey(type))
-					_repositories.Add(type, new Repository<TEntity>(DreamletContext ?? context));
+					_repositories.Add(type, new Repository<TEntity>(DreamletContext));
 
 				return (IRepository<TEntity>)_repositories[type];
 			}

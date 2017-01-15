@@ -67,9 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\Base\BaseService.cs" />
-    <Compile Include="Services\Base\IBaseService.cs" />
     <Compile Include="Ioc\IocBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Base\IBaseService.cs" />
     <Compile Include="Services\Interfaces\IDreamTermsService.cs" />
     <Compile Include="Services\Interfaces\IDreamStoriesService.cs" />
     <Compile Include="Services\Providers\DreamTermsService.cs" />

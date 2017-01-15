@@ -10,8 +10,6 @@ namespace dreamlet.DataAccessLayer.Repository
 {
 	public interface IRepository<TEntity> : IDisposable where TEntity : class, IBaseEntity
 	{
-		DreamletEfContext Context { get; set; }
-
 		IDbSet<TEntity> Set { get; set; }
 
 		bool HasAny(Expression<Func<TEntity, bool>> predicate);
@@ -31,20 +29,26 @@ namespace dreamlet.DataAccessLayer.Repository
 		/// <summary>
 		/// Gets objects from database by filter.
 		/// </summary>
-		/// <param name="predicate">Specified a filter</param>
+		/// <param name="predicate">Filter entites by a lookup expression.</param>
 		IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate);
+
+		/// <summary>
+		/// Gets ActiveStatus = 1 TEntity objects by combining with the lookup predicate.
+		/// </summary>
+		/// <param name="predicate">Filter entites by a lookup expression.</param>
+		IQueryable<TEntity> FilterActive(Expression<Func<TEntity, bool>> predicate = null);
 
 		/// <summary>
 		/// Gets objects from database by filter with related tables.
 		/// </summary>
-		/// <param name="predicate">Specified a filter</param>
+		/// <param name="predicate">Filter entites by a lookup expression.</param>
 		/// <param name="includes">Specified related entites</param>
 		IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes);
 
 		/// <summary>
 		/// Gets objects ordered by a sort selector with desired entites included.
 		/// </summary>
-		/// <param name="predicate">Specified a filter</param>
+		/// <param name="predicate">Filter entites by a lookup expression.</param>
 		/// <param name="orederBy">Specified a lambda sort property</param>
 		/// <param name="total">Returns the total records count of the filter</param>
 		/// <param name="index">Specified the page index.</param>

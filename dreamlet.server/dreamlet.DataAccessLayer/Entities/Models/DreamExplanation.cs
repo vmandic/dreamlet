@@ -3,10 +3,10 @@ using System;
 
 namespace dreamlet.DataAccessLayer.Entities.Models
 {
-    public class DreamExplanation : BaseEntity
-    {
+	public class DreamExplanation : BaseEntity
+	{
 		public string Explanation { get; set; }
-		public Guid DreamTermId { get; set; }
+		public int DreamTermId { get; set; }
 
 		public virtual DreamTerm DreamTerm { get; set; }
 	}

@@ -1,9 +1,7 @@
 ﻿using dreamlet.BusinessLogicLayer.Services.Interfaces;
-using dreamlet.BusinessLogicLayer.Services.Providers;
 using dreamlet.DataAccessLayer.EfDbContext;
 using DryIoc;
 using DryIoc.MefAttributedModel;
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 

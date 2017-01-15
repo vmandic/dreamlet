@@ -11,10 +11,11 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 			this.DreamExplanations = new List<DreamExplanation>();
 			this.DreamTermTags = new List<DreamTermTag>();
 		}
-		public Guid LanguageId { get; set; }
+		public int LanguageId { get; set; }
 		public string Term { get; set; }
 
 		public virtual Language Language { get; set; }
+		public virtual DreamTermStatistic DreamTermStatistic { get; set; }
 		public virtual ICollection<DreamExplanation> DreamExplanations { get; set; }
 		public virtual ICollection<DreamTermTag> DreamTermTags { get; set; }
 	}
@@ -23,7 +24,7 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 	{
 		public DreamTermMapping() : base()
 		{
-
+			this.HasOptional(x => x.DreamTermStatistic).WithRequired(dts => dts.DreamTerm);
 		}
 	}
 }

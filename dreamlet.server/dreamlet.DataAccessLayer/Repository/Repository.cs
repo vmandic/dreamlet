@@ -1,5 +1,6 @@
 ﻿using dreamlet.DataAccessLayer.EfDbContext;
 using dreamlet.DataAccessLayer.Entities.Base;
+using dreamlet.Models;
 using dreamlet.Utilities;
 using EntityFramework.Extensions;
 using LinqKit;
@@ -110,7 +111,7 @@ namespace dreamlet.DataAccessLayer.Repository
 
 		public virtual int Update(TEntity TEntity)
 		{
-			if (Set.Find(TEntity.Id) == null)
+			if (Set.Find(TEntity.Uid) == null)
 				Set.Attach(TEntity);
 
 			var entry = Context.Entry(TEntity);
@@ -195,7 +196,7 @@ namespace dreamlet.DataAccessLayer.Repository
 				foreach (var i in includes)
 					query = query.Include(i);
 
-			var entity = query.FirstOrDefault(x => x.Id == id);
+			var entity = query.FirstOrDefault(x => x.Uid == id);
 
 			if (entity != null && reload)
 				Context.Entry(entity).Reload();
@@ -364,7 +365,10 @@ namespace dreamlet.DataAccessLayer.Repository
 			try
 			{
 				Create(entity);
-				await Context.SaveChangesAsync();
+
+				lock(_locker)
+					await Context.SaveChangesAsync();
+
 				return true;
 			}
 			catch (Exception ex)
@@ -397,7 +401,7 @@ namespace dreamlet.DataAccessLayer.Repository
 				foreach (var i in includes)
 					query = query.Include(i);
 
-			var entity = await query.FirstOrDefaultAsync(x => x.Id == id);
+			var entity = await query.FirstOrDefaultAsync(x => x.Uid == id);
 
 			if (entity != null && reload)
 				await Context.Entry(entity).ReloadAsync();
@@ -413,12 +417,15 @@ namespace dreamlet.DataAccessLayer.Repository
 				foreach (var i in includes)
 					query = query.Include(i);
 
-			var entity = await query.FirstOrDefaultAsync(x => x.Id == id);
+			var entity = await query.FirstOrDefaultAsync(x => x.Uid == id);
 
 			if (entity != null && reload)
 				await Context.Entry(entity).ReloadAsync();
 
 			return entity;
 		}
+
+		public IQueryable<TEntity> FilterActive(Expression<Func<TEntity, bool>> predicate = null)
+			=> predicate == null ? Filter(x => x.ActiveState == ActiveState.Active) : Filter(x => x.ActiveState == ActiveState.Active).Where(predicate);
 	}
 }
