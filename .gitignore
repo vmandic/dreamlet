@@ -7,6 +7,7 @@ node_modules
 dl
 /notes
 *.user
+/dreamlet.client/packages
 /dreamlet.server/packages
 /dreamlet.server/*/bin
 /dreamlet.server/*/obj
