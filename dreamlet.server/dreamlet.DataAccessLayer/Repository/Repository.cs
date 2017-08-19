@@ -365,9 +365,7 @@ namespace dreamlet.DataAccessLayer.Repository
 			try
 			{
 				Create(entity);
-
-				lock(_locker)
-					await Context.SaveChangesAsync();
+				await Context.SaveChangesAsync();
 
 				return true;
 			}
