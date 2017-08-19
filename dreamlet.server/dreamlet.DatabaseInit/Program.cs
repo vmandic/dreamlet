@@ -1,14 +1,14 @@
-﻿using dreamlet.DataAccessLayer.EfDbContext;
-using dreamlet.DataAccessLayer.Entities.Models;
+﻿using dreamlet.DataAccessLayer.DbContext;
+using dreamlet.DbEntities.Models;
 using dreamlet.DataAccessLayer.Repository;
 using dreamlet.DataAccessLayer.UnitOfWork;
-using dreamlet.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using dreamlet.Utilities;
 
 namespace dreamlet.DatabaseInit
 {
@@ -40,7 +40,7 @@ namespace dreamlet.DatabaseInit
 
 		static void _SetupImporter()
 		{
-			var ctx = new DreamletEfContext();
+			var ctx = new DreamletDbContext();
 			_repoFactory = new RepositoryFactory(ctx);
 			_uow = new UnitOfWork();
 
@@ -115,7 +115,7 @@ namespace dreamlet.DatabaseInit
 		{
 			Console.WriteLine("INSERTING DREAM TERMS SCRAPE 1...");
 
-			string json = System.IO.File.ReadAllText(@"Scrapes/dream-scrape1-take2-formatted.json");
+			string json = File.ReadAllText(@"Scrapes/dream-scrape1-take2-formatted.json");
 			var obj = JsonConvert.DeserializeObject<IEnumerable<JsonDreamTerm>>(json);
 
 			Console.WriteLine("Scrape loaded, fetching language and admin user...");

@@ -1,11 +1,11 @@
-﻿using dreamlet.DataAccessLayer.EfDbContext;
+﻿using dreamlet.DataAccessLayer.DbContext;
 using System.Threading.Tasks;
 
 namespace dreamlet.DataAccessLayer.UnitOfWork
 {
 	public interface IUnitOfWork
 	{
-		DreamletEfContext DreamletContext { get; set; }
+		DreamletDbContext DreamletContext { get; set; }
 
 		bool Commit();
 

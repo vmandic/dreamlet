@@ -1,7 +1,7 @@
-﻿using dreamlet.DataAccessLayer.Entities.Base;
+﻿using dreamlet.DbEntities.Base;
 using System.Collections.Generic;
 
-namespace dreamlet.DataAccessLayer.Entities.Models
+namespace dreamlet.DbEntities.Models
 {
 	public class Language : BaseEntity
 	{
@@ -15,7 +15,7 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 		public virtual ICollection<DreamTerm> DreamTerms { get; set; }
 	}
 
-	internal class LanguageMapping : BaseEntityMapping<Language>
+  public class LanguageMapping : BaseEntityMapping<Language>
 	{
 		public LanguageMapping() : base()
 		{

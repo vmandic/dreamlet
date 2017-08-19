@@ -1,5 +1,5 @@
-﻿using dreamlet.DataAccessLayer.EfDbContext;
-using dreamlet.DataAccessLayer.Entities.Base;
+﻿using dreamlet.DataAccessLayer.DbContext;
+using dreamlet.DbEntities.Base;
 using dreamlet.Models;
 using dreamlet.Utilities;
 using EntityFramework.Extensions;
@@ -16,19 +16,19 @@ namespace dreamlet.DataAccessLayer.Repository
 	{
 		private static object _locker = new object();
 
-		public DreamletEfContext Context { get; set; }
+		public DreamletDbContext Context { get; set; }
 		public IDbSet<TEntity> Set { get; set; }
 
 		private bool shareContext;
 
-		public Repository(DreamletEfContext ctx)
+		public Repository(DreamletDbContext ctx)
 		{
 			Context = ctx;
 			shareContext = true;
 			Set = Context.Set<TEntity>();
 		}
 
-		public Repository(DreamletEfContext ctx, bool _shareContext = true)
+		public Repository(DreamletDbContext ctx, bool _shareContext = true)
 		{
 			Context = ctx;
 			shareContext = _shareContext;

@@ -1,6 +1,6 @@
 ﻿using dreamlet.BusinessLogicLayer.Services.Base;
 using dreamlet.BusinessLogicLayer.Services.Interfaces;
-using dreamlet.DataAccessLayer.Entities.Models;
+using dreamlet.DbEntities.Models;
 using dreamlet.Models.Transport.DreamTerms;
 using DryIocAttributes;
 using System.Collections.Generic;
@@ -9,8 +9,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
-using dreamlet.Models;
 using System.Linq.Expressions;
+using dreamlet.Utilities;
 
 namespace dreamlet.BusinessLogicLayer.Services.Providers
 {

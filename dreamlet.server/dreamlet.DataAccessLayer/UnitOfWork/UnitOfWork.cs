@@ -1,4 +1,4 @@
-﻿using dreamlet.DataAccessLayer.EfDbContext;
+﻿using dreamlet.DataAccessLayer.DbContext;
 using DryIocAttributes;
 using System;
 using System.ComponentModel.Composition;
@@ -10,9 +10,9 @@ namespace dreamlet.DataAccessLayer.UnitOfWork
 	public class UnitOfWork : IUnitOfWork
 	{
 
-		private DreamletEfContext _context;
+		private DreamletDbContext _context;
 
-		public UnitOfWork(DreamletEfContext context = null)
+		public UnitOfWork(DreamletDbContext context = null)
 		{
 			if (context != null)
 				_context = context;
@@ -20,11 +20,11 @@ namespace dreamlet.DataAccessLayer.UnitOfWork
 		}
 
 		[Import]
-		public DreamletEfContext DreamletContext
+		public DreamletDbContext DreamletContext
 		{
 			get
 			{
-				return _context ?? (_context = new DreamletEfContext());
+				return _context ?? (_context = new DreamletDbContext());
 			}
 			set
 			{

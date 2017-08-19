@@ -1,9 +1,10 @@
 ﻿using dreamlet.BusinessLogicLayer.Services.Interfaces;
 using dreamlet.BusinessLogicLayer.Services.Providers;
-using dreamlet.DataAccessLayer.EfDbContext;
+using dreamlet.DataAccessLayer.DbContext;
 using dreamlet.DataAccessLayer.Repository;
 using dreamlet.DataAccessLayer.UnitOfWork;
 using dreamlet.Models.Transport.DreamTerms;
+using dreamlet.Utilities;
 using DryIoc;
 using DryIoc.MefAttributedModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -32,7 +33,7 @@ namespace dreamlet.Generic.Services.Tests
 		{
 			_container = new Container().WithMefAttributedModel();
 
-			_container.Register<DreamletEfContext>(Reuse.Singleton);
+			_container.Register<DreamletDbContext>(Reuse.Singleton);
 			_container.Register<IDreamTermsService, DreamTermsService>(Reuse.Singleton);
 			_container.Register<IUnitOfWork, UnitOfWork>(Reuse.Singleton);
 			_container.Register<RepositoryFactory>(Reuse.Singleton);
@@ -88,7 +89,7 @@ namespace dreamlet.Generic.Services.Tests
 		[TestMethod]
 		public async Task Should_fetch_top_liked_dreams()
 		{
-			List<DreamTermStatisticModel> dreams = await DreamTermsService.GetTopLikedDreamTermsByAccess(Models.AccessFilter.General, 25);
+			List<DreamTermStatisticModel> dreams = await DreamTermsService.GetTopLikedDreamTermsByAccess(AccessFilter.General, 25);
 
 			// ASSERT
 			Assert.IsNotNull(dreams);

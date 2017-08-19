@@ -1,5 +1,5 @@
-﻿using dreamlet.DataAccessLayer.EfDbContext;
-using dreamlet.DataAccessLayer.Entities.Base;
+﻿using dreamlet.DataAccessLayer.DbContext;
+using dreamlet.DbEntities.Base;
 using System;
 using System.Data.Entity;
 using System.Linq;

@@ -1,13 +1,14 @@
-namespace dreamlet.DataAccessLayer.Migrations
+namespace dreamlet.DbMigrations.Migrations
 {
-	using Models;
+  using dreamlet.DataAccessLayer.DbContext;
+  using dreamlet.Utilities;
 	using System;
 	using System.Collections.Generic;
 	using System.Data.Entity.Migrations;
 	using System.Data.Entity.Migrations.Design;
 	using System.Data.Entity.Migrations.Model;
 
-	internal sealed class Configuration : DbMigrationsConfiguration<dreamlet.DataAccessLayer.EfDbContext.DreamletEfContext>
+	internal sealed class Configuration : DbMigrationsConfiguration<DreamletDbContext>
 	{
 		public Configuration()
 		{
@@ -15,7 +16,7 @@ namespace dreamlet.DataAccessLayer.Migrations
 			CodeGenerator = new ExtendedMigrationCodeGenerator();
 		}
 
-		protected override void Seed(dreamlet.DataAccessLayer.EfDbContext.DreamletEfContext context)
+		protected override void Seed(DreamletDbContext context)
 		{
 			//  This method will be called after migrating to the latest version.
 

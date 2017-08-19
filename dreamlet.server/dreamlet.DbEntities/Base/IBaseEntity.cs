@@ -1,7 +1,7 @@
-﻿using dreamlet.Models;
+﻿using dreamlet.Utilities;
 using System;
 
-namespace dreamlet.DataAccessLayer.Entities.Base
+namespace dreamlet.DbEntities.Base
 {
 	public interface IBaseEntity
 	{

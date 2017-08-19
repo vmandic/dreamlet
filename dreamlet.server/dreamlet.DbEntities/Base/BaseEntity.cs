@@ -1,10 +1,10 @@
-﻿using dreamlet.Models;
+﻿using dreamlet.Utilities;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
-namespace dreamlet.DataAccessLayer.Entities.Base
+namespace dreamlet.DbEntities.Base
 {
 	public abstract class BaseEntity : IBaseEntity
 	{

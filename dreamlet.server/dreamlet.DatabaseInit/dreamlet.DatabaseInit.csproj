@@ -65,13 +65,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Content Include="cs-dev.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="cs-prod.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\dreamlet.Configs\cs-dev.config">
+      <Link>cs-dev.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\dreamlet.Configs\cs-prod.config">
+      <Link>cs-prod.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dreamlet.BusinessLogicLayer\dreamlet.BusinessLogicLayer.csproj">
@@ -85,6 +89,10 @@
     <ProjectReference Include="..\dreamlet.DataAccessLayer\dreamlet.DataAccessLayer.csproj">
       <Project>{78555352-e0ec-4532-abd0-88ff29f5782e}</Project>
       <Name>dreamlet.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dreamlet.DbEntities\dreamlet.DbEntities.csproj">
+      <Project>{0A14B78F-E34D-4E05-8F6C-52DF1203E086}</Project>
+      <Name>dreamlet.DbEntities</Name>
     </ProjectReference>
     <ProjectReference Include="..\dreamlet.Models\dreamlet.Models.csproj">
       <Project>{D1F4D119-E6E1-4D0A-821A-8254F9E98CFC}</Project>

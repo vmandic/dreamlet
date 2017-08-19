@@ -1,7 +1,6 @@
-﻿using dreamlet.DataAccessLayer.Entities.Base;
-using System;
+﻿using dreamlet.DbEntities.Base;
 
-namespace dreamlet.DataAccessLayer.Entities.Models
+namespace dreamlet.DbEntities.Models
 {
 	public class DreamTermStatistic : BaseEntity
 	{
@@ -16,11 +15,11 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 		public virtual DreamTerm DreamTerm { get; set; }
 	}
 
-	internal class DreamTermStatisticMapping : BaseEntityMapping<DreamTermStatistic>
+  public class DreamTermStatisticMapping : BaseEntityMapping<DreamTermStatistic>
 	{
 		public DreamTermStatisticMapping() : base()
 		{
-			this.HasKey(x => x.DreamTermId);
+
 		}
 	}
 }

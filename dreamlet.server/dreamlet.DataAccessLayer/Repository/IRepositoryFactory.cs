@@ -1,5 +1,5 @@
-﻿using dreamlet.DataAccessLayer.EfDbContext;
-using dreamlet.DataAccessLayer.Entities.Base;
+﻿using dreamlet.DataAccessLayer.DbContext;
+using dreamlet.DbEntities.Base;
 
 namespace dreamlet.DataAccessLayer.Repository
 {

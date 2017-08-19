@@ -1,5 +1,5 @@
-﻿using dreamlet.DataAccessLayer.EfDbContext;
-using dreamlet.DataAccessLayer.Entities.Base;
+﻿using dreamlet.DataAccessLayer.DbContext;
+using dreamlet.DbEntities.Base;
 using DryIocAttributes;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -13,9 +13,9 @@ namespace dreamlet.DataAccessLayer.Repository
 		private Dictionary<string, object> _repositories;
 
 		[Import]
-		public DreamletEfContext DreamletContext { get; set; }
+		public DreamletDbContext DreamletContext { get; set; }
 
-		public RepositoryFactory(DreamletEfContext context = null)
+		public RepositoryFactory(DreamletDbContext context = null)
 		{
 			if (context != null)
 				DreamletContext = context;

@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DreamletCrypto.cs" />
+    <Compile Include="DreamletEnums.cs" />
     <Compile Include="DreamletExtensions.cs" />
     <Compile Include="DreamletHasher.cs" />
     <Compile Include="DreamletLogger.cs" />

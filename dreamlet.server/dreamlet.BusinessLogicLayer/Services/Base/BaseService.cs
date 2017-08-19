@@ -1,4 +1,4 @@
-﻿using dreamlet.DataAccessLayer.Entities.Base;
+﻿using dreamlet.DbEntities.Base;
 using dreamlet.DataAccessLayer.Repository;
 using dreamlet.DataAccessLayer.UnitOfWork;
 using System.ComponentModel.Composition;

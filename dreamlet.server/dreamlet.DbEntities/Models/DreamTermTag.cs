@@ -1,7 +1,7 @@
-﻿using dreamlet.DataAccessLayer.Entities.Base;
+﻿using dreamlet.DbEntities.Base;
 using System;
 
-namespace dreamlet.DataAccessLayer.Entities.Models
+namespace dreamlet.DbEntities.Models
 {
 	public class DreamTermTag : BaseEntity
 	{
@@ -12,7 +12,7 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 		public virtual DreamTerm DreamTerm { get; set; }
 	}
 
-	internal class DreamTermTagMapping : BaseEntityMapping<DreamTermTag>
+  public class DreamTermTagMapping : BaseEntityMapping<DreamTermTag>
 	{
 		public DreamTermTagMapping() : base()
 		{

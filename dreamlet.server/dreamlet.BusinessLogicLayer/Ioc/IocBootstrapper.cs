@@ -1,5 +1,5 @@
 ﻿using dreamlet.BusinessLogicLayer.Services.Interfaces;
-using dreamlet.DataAccessLayer.EfDbContext;
+using dreamlet.DataAccessLayer.DbContext;
 using DryIoc;
 using DryIoc.MefAttributedModel;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace dreamlet.BusinessLogicLayer.Ioc
 		public static IContainer RegisterDependencies(IContainer container)
 		{
 			container.RegisterExports(new List<Assembly> {
-				typeof(DreamletEfContext).GetTypeInfo().Assembly,
+				typeof(DreamletDbContext).GetTypeInfo().Assembly,
 				typeof(IDreamTermsService).GetTypeInfo().Assembly
 			});
 

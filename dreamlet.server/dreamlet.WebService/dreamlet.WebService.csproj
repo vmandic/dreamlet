@@ -174,7 +174,6 @@
     <Content Include="..\dreamlet.Configs\cs-prod.config">
       <Link>cs-prod.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

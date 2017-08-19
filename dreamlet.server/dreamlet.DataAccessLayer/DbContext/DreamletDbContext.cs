@@ -1,24 +1,24 @@
-﻿using dreamlet.DataAccessLayer.Entities.Models;
+﻿using dreamlet.DbEntities.Models;
 using DryIocAttributes;
 using System.ComponentModel.Composition;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace dreamlet.DataAccessLayer.EfDbContext
+namespace dreamlet.DataAccessLayer.DbContext
 {
 	[Export, WebRequestReuse]
-	public class DreamletEfContext : DbContext
+	public class DreamletDbContext : System.Data.Entity.DbContext
 	{
 		private static object _locker = new object();
 		private static int _identifier = 0;
 
-		static DreamletEfContext()
+		static DreamletDbContext()
 		{
 			// NOTE: do not create database on "first contact", i.e. no database init strategy.
-			Database.SetInitializer<DreamletEfContext>(null);
+			Database.SetInitializer<DreamletDbContext>(null);
 		}
 
-		public DreamletEfContext()
+		public DreamletDbContext()
 		{
 			this.Configuration.LazyLoadingEnabled = false;
 			this.Configuration.AutoDetectChangesEnabled = false;

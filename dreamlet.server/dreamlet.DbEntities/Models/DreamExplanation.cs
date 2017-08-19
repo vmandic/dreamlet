@@ -1,7 +1,7 @@
-﻿using dreamlet.DataAccessLayer.Entities.Base;
+﻿using dreamlet.DbEntities.Base;
 using System;
 
-namespace dreamlet.DataAccessLayer.Entities.Models
+namespace dreamlet.DbEntities.Models
 {
 	public class DreamExplanation : BaseEntity
 	{
@@ -11,7 +11,7 @@ namespace dreamlet.DataAccessLayer.Entities.Models
 		public virtual DreamTerm DreamTerm { get; set; }
 	}
 
-	internal class DreamExplanationMapping : BaseEntityMapping<DreamExplanation>
+	public class DreamExplanationMapping : BaseEntityMapping<DreamExplanation>
 	{
 		public DreamExplanationMapping() : base()
 		{
