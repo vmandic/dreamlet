@@ -1,0 +1,40 @@
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\csc.exe
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\System.Collections.Immutable.dll
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\vbc.exe
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\VBCSCompiler.exe
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\roslyn\VBCSCompiler.exe.config
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\dreamlet.ReactUI.dll.config
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\dreamlet.ReactUI.dll
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\dreamlet.ReactUI.pdb
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\obj\Debug\dreamlet.ReactUI.csprojResolveAssemblyReference.cache
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\obj\Debug\dreamlet.ReactUI.dll
+c:\users\vedran\documents\visual studio 2015\Projects\wa-test1\wa-test1\obj\Debug\dreamlet.ReactUI.pdb
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\csc.exe
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\vbc.exe
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\VBCSCompiler.exe
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\dreamlet.ReactUI.dll.config
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\dreamlet.ReactUI.dll
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\dreamlet.ReactUI.pdb
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\obj\Debug\dreamlet.ReactUI.csprojResolveAssemblyReference.cache
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\obj\Debug\dreamlet.ReactUI.dll
+C:\Users\Vedran\Google Drive\Projects\dreamlet\dreamlet.client\dreamlet.ReactUI\obj\Debug\dreamlet.ReactUI.pdb

@@ -46,6 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configs", "Configs", "{357E
 	ProjectSection(SolutionItems) = preProject
 		dreamlet.Configs\cs-dev.config = dreamlet.Configs\cs-dev.config
 		dreamlet.Configs\cs-prod.config = dreamlet.Configs\cs-prod.config
+		dreamlet.Configs\settings-secret.config = dreamlet.Configs\settings-secret.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dreamlet.DbEntities", "dreamlet.DbEntities\dreamlet.DbEntities.csproj", "{0A14B78F-E34D-4E05-8F6C-52DF1203E086}"
