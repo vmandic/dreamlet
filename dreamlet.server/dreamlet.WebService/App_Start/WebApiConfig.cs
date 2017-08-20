@@ -21,8 +21,6 @@ namespace dreamlet.WebService
 			config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 			config.Formatters.JsonFormatter.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
 
-			// enable CORS due to client app on different origin
-			config.EnableCors();
 
 			// Register DryIoc IoC manager
 			DryIocConfig.Register(config);
