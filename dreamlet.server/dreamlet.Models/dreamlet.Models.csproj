@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DreamletEnums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transport\Base\BaseJsonResponse{T}.cs" />
     <Compile Include="Transport\DreamTerms\DreamTermModel.cs" />

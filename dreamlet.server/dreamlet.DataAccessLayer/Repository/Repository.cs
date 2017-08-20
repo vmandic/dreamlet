@@ -1,10 +1,11 @@
-﻿using dreamlet.DataAccessLayer.EfDbContext;
-using dreamlet.DataAccessLayer.Entities.Base;
-using dreamlet.Models;
+﻿using dreamlet.DataAccessLayer.DbContext;
+using dreamlet.DbEntities.Base;
 using dreamlet.Utilities;
+using DryIocAttributes;
 using EntityFramework.Extensions;
 using LinqKit;
 using System;
+using System.ComponentModel.Composition;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
@@ -12,38 +13,30 @@ using System.Threading.Tasks;
 
 namespace dreamlet.DataAccessLayer.Repository
 {
+  [Export(typeof(IRepository<>)), WebRequestReuse]
 	public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IBaseEntity
 	{
 		private static object _locker = new object();
 
-		public DreamletEfContext Context { get; set; }
+    [Import]
+		public DreamletDbContext Db { get; set; }
 		public IDbSet<TEntity> Set { get; set; }
 
-		private bool shareContext;
-
-		public Repository(DreamletEfContext ctx)
+		public Repository(DreamletDbContext db)
 		{
-			Context = ctx;
-			shareContext = true;
-			Set = Context.Set<TEntity>();
-		}
-
-		public Repository(DreamletEfContext ctx, bool _shareContext = true)
-		{
-			Context = ctx;
-			shareContext = _shareContext;
-			Set = Context.Set<TEntity>();
+      Db = db;
+			Set = Db.Set<TEntity>();
 		}
 
 		public void Dispose()
 		{
-			if (shareContext && (Context != null))
-				Context.Dispose();
+			if (Db != null)
+				Db.Dispose();
 		}
 
 		public virtual IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate)
 		{
-			return Set.Where(predicate).AsQueryable();
+			return Set.Where(predicate);
 		}
 
 		public virtual IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
@@ -54,7 +47,7 @@ namespace dreamlet.DataAccessLayer.Repository
 				foreach (var i in includes)
 					query = query.Include(i);
 
-			return query.Where(predicate).AsQueryable();
+			return query.Where(predicate);
 		}
 
 		public bool Contains(Expression<Func<TEntity, bool>> predicate)
@@ -72,21 +65,14 @@ namespace dreamlet.DataAccessLayer.Repository
 			lock (_locker)
 			{
 				var newEntry = Set.Add(TEntity);
-
-				if (!shareContext)
-					Context.SaveChanges();
-
 				return newEntry;
 			}
 		}
 
 		public int UpdateForceAttached(TEntity t)
 		{
-			var entry = Context.Entry(t);
+			var entry = Db.Entry(t);
 			entry.State = EntityState.Modified;
-
-			if (!shareContext)
-				return Context.SaveChanges();
 
 			return 0;
 		}
@@ -103,9 +89,6 @@ namespace dreamlet.DataAccessLayer.Repository
 		{
 			Set.Remove(TEntity);
 
-			if (!shareContext)
-				return Context.SaveChanges();
-
 			return 0;
 		}
 
@@ -114,11 +97,8 @@ namespace dreamlet.DataAccessLayer.Repository
 			if (Set.Find(TEntity.Uid) == null)
 				Set.Attach(TEntity);
 
-			var entry = Context.Entry(TEntity);
+			var entry = Db.Entry(TEntity);
 			entry.State = EntityState.Modified;
-
-			if (!shareContext)
-				return Context.SaveChanges();
 
 			return 0;
 		}
@@ -129,9 +109,6 @@ namespace dreamlet.DataAccessLayer.Repository
 
 			foreach (var obj in objects)
 				Set.Remove(obj);
-
-			if (!shareContext)
-				return Context.SaveChanges();
 
 			return 0;
 		}
@@ -145,10 +122,10 @@ namespace dreamlet.DataAccessLayer.Repository
 				foreach (var obj in objects)
 					Set.Remove(obj);
 
-				await Context.SaveChangesAsync();
+				await Db.SaveChangesAsync();
 				return true;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				// TODO: log ex
 				return false;
@@ -157,7 +134,7 @@ namespace dreamlet.DataAccessLayer.Repository
 
 		public IQueryable<TEntity> Include(params string[] includes)
 		{
-			var q = Context.Set<TEntity>() as IQueryable<TEntity>;
+			var q = Db.Set<TEntity>() as IQueryable<TEntity>;
 
 			foreach (var include in includes)
 				q = q.Include(include);
@@ -167,7 +144,7 @@ namespace dreamlet.DataAccessLayer.Repository
 
 		public TEntity Create()
 		{
-			return Context.Set<TEntity>().Create();
+			return Db.Set<TEntity>().Create();
 		}
 
 		public void InsertGraph(TEntity entity)
@@ -181,7 +158,7 @@ namespace dreamlet.DataAccessLayer.Repository
 
 			if (entity != null && reload)
 			{
-				var entry = Context.Entry(entity);
+				var entry = Db.Entry(entity);
 				entry.Reload();
 			}
 
@@ -199,7 +176,7 @@ namespace dreamlet.DataAccessLayer.Repository
 			var entity = query.FirstOrDefault(x => x.Uid == id);
 
 			if (entity != null && reload)
-				Context.Entry(entity).Reload();
+				Db.Entry(entity).Reload();
 
 			return entity;
 		}
@@ -215,12 +192,12 @@ namespace dreamlet.DataAccessLayer.Repository
 			var entity = query.FirstOrDefault(predicate);
 
 			if (entity != null && reload)
-				Context.Entry(entity).Reload();
+				Db.Entry(entity).Reload();
 
 			return entity;
 		}
 
-		public bool HasAny(Expression<Func<TEntity, bool>> predicate)
+		public bool Any(Expression<Func<TEntity, bool>> predicate)
 		{
 			lock (_locker)
 			{
@@ -228,14 +205,14 @@ namespace dreamlet.DataAccessLayer.Repository
 			}
 		}
 
-		public bool HasAll(Expression<Func<TEntity, bool>> predicate)
+		public bool All(Expression<Func<TEntity, bool>> predicate)
 		{
 			return Set.All(predicate);
 		}
 
 		public void Update(TEntity entity, params Expression<Func<TEntity, object>>[] properties)
 		{
-			var entry = Context.Entry(entity);
+			var entry = Db.Entry(entity);
 			entry.State = EntityState.Unchanged;
 
 			// unwraps the entity properties to only update the sent properties
@@ -346,12 +323,12 @@ namespace dreamlet.DataAccessLayer.Repository
 			var entity = await query.FirstOrDefaultAsync(predicate);
 
 			if (reload)
-				Context.Entry(entity).Reload();
+				Db.Entry(entity).Reload();
 
 			return entity;
 		}
 
-		public async Task<bool> HasAnyAsync(Expression<Func<TEntity, bool>> predicate)
+		public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
 		{
 			return await Set.AnyAsync(predicate);
 		}
@@ -365,13 +342,11 @@ namespace dreamlet.DataAccessLayer.Repository
 			try
 			{
 				Create(entity);
-
-				lock(_locker)
-					await Context.SaveChangesAsync();
+				await Db.SaveChangesAsync();
 
 				return true;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				// TODO: log ex
 				return false;
@@ -383,10 +358,10 @@ namespace dreamlet.DataAccessLayer.Repository
 			try
 			{
 				Update(entity, properties);
-				await Context.SaveChangesAsync();
+				await Db.SaveChangesAsync();
 				return true;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				// TODO: log ex
 				return false;
@@ -404,7 +379,7 @@ namespace dreamlet.DataAccessLayer.Repository
 			var entity = await query.FirstOrDefaultAsync(x => x.Uid == id);
 
 			if (entity != null && reload)
-				await Context.Entry(entity).ReloadAsync();
+				await Db.Entry(entity).ReloadAsync();
 
 			return entity;
 		}
@@ -420,7 +395,7 @@ namespace dreamlet.DataAccessLayer.Repository
 			var entity = await query.FirstOrDefaultAsync(x => x.Uid == id);
 
 			if (entity != null && reload)
-				await Context.Entry(entity).ReloadAsync();
+				await Db.Entry(entity).ReloadAsync();
 
 			return entity;
 		}

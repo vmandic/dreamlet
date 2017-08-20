@@ -42,13 +42,11 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LinqKit, Version=1.1.8.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
-      <HintPath>..\packages\LinqKit.1.1.8.0\lib\net461\LinqKit.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="LinqKit, Version=1.1.9.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.1.9.0\lib\net45\LinqKit.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -64,37 +62,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EfDbContext\DreamletEfContext.cs" />
-    <Compile Include="Entities\Base\BaseEntity.cs" />
-    <Compile Include="Entities\Base\IBaseEntity.cs" />
-    <Compile Include="Entities\Models\DreamTag.cs" />
-    <Compile Include="Entities\Models\DreamTerm.cs" />
-    <Compile Include="Entities\Models\DreamTermStatistic.cs" />
-    <Compile Include="Entities\Models\DreamTermTag.cs" />
-    <Compile Include="Entities\Models\DreamExplanation.cs" />
-    <Compile Include="Entities\Models\Language.cs" />
-    <Compile Include="Entities\Models\User.cs" />
-    <Compile Include="Migrations\201701151142050_m1_initial.cs" />
-    <Compile Include="Migrations\201701151142050_m1_initial.Designer.cs">
-      <DependentUpon>201701151142050_m1_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="DbContext\DbCompiledModelFactory.cs" />
+    <Compile Include="DbContext\DreamletDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\IRepositoryFactory.cs" />
     <Compile Include="Repository\Repository.cs" />
-    <Compile Include="Repository\RepositoryFactory.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dreamlet.Composition\dreamlet.Composition.csproj">
       <Project>{8BC3381E-C749-49D2-8F46-20F4DF22B528}</Project>
       <Name>dreamlet.Composition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dreamlet.DbEntities\dreamlet.DbEntities.csproj">
+      <Project>{0a14b78f-e34d-4e05-8f6c-52df1203e086}</Project>
+      <Name>dreamlet.DbEntities</Name>
     </ProjectReference>
     <ProjectReference Include="..\dreamlet.Models\dreamlet.Models.csproj">
       <Project>{d1f4d119-e6e1-4d0a-821a-8254f9e98cfc}</Project>
@@ -104,11 +93,6 @@
       <Project>{87cd6fba-6917-4a06-8988-77086e967790}</Project>
       <Name>dreamlet.Utilities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701151142050_m1_initial.resx">
-      <DependentUpon>201701151142050_m1_initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

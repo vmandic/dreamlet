@@ -1,4 +1,4 @@
-﻿using dreamlet.DataAccessLayer.EfDbContext;
+﻿using dreamlet.DataAccessLayer.DbContext;
 using DryIocAttributes;
 using System;
 using System.ComponentModel.Composition;
@@ -9,37 +9,21 @@ namespace dreamlet.DataAccessLayer.UnitOfWork
 	[Export(typeof(IUnitOfWork)), WebRequestReuse]
 	public class UnitOfWork : IUnitOfWork
 	{
+		public UnitOfWork(DreamletDbContext db)
+    {
+      Db = db;
+    }
 
-		private DreamletEfContext _context;
-
-		public UnitOfWork(DreamletEfContext context = null)
-		{
-			if (context != null)
-				_context = context;
-
-		}
-
-		[Import]
-		public DreamletEfContext DreamletContext
-		{
-			get
-			{
-				return _context ?? (_context = new DreamletEfContext());
-			}
-			set
-			{
-				_context = value;
-			}
-		}
+		public DreamletDbContext Db { get; set; }
 
 		public bool Commit()
 		{
 			try
 			{
-				DreamletContext.SaveChanges();
+				Db.SaveChanges();
 				return true;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				// TODO: handle or log ex
 				return false;
@@ -50,10 +34,10 @@ namespace dreamlet.DataAccessLayer.UnitOfWork
 		{
 			try
 			{
-				await DreamletContext.SaveChangesAsync();
+				await Db.SaveChangesAsync();
 				return true;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				// TODO: handle or log ex
 				return false;

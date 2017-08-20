@@ -1,9 +1,7 @@
-﻿using dreamlet.BusinessLogicLayer.Services.Interfaces;
-using dreamlet.BusinessLogicLayer.Services.Providers;
-using dreamlet.DataAccessLayer.EfDbContext;
-using dreamlet.DataAccessLayer.Repository;
-using dreamlet.DataAccessLayer.UnitOfWork;
+﻿using dreamlet.BusinessLogicLayer.Ioc;
+using dreamlet.BusinessLogicLayer.Services.Interfaces;
 using dreamlet.Models.Transport.DreamTerms;
+using dreamlet.Utilities;
 using DryIoc;
 using DryIoc.MefAttributedModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace dreamlet.Generic.Services.Tests
 {
-	[TestClass]
+  [TestClass]
 	public class DreamTermsServiceTests
 	{
 		private IContainer _container;
@@ -30,13 +28,8 @@ namespace dreamlet.Generic.Services.Tests
 		[TestInitialize]
 		public void Setup()
 		{
-			_container = new Container().WithMefAttributedModel();
-
-			_container.Register<DreamletEfContext>(Reuse.Singleton);
-			_container.Register<IDreamTermsService, DreamTermsService>(Reuse.Singleton);
-			_container.Register<IUnitOfWork, UnitOfWork>(Reuse.Singleton);
-			_container.Register<RepositoryFactory>(Reuse.Singleton);
-		}
+      _container = IocBootstrapper.RegisterDependencies(new Container().WithMefAttributedModel()).WithMefAttributedModel().OpenScope(Reuse.WebRequestScopeName);
+    }
 
 		[TestMethod]
 		public async Task Should_fetch_all_dream_terms_for_letter_a()
@@ -88,7 +81,7 @@ namespace dreamlet.Generic.Services.Tests
 		[TestMethod]
 		public async Task Should_fetch_top_liked_dreams()
 		{
-			List<DreamTermStatisticModel> dreams = await DreamTermsService.GetTopLikedDreamTermsByAccess(Models.AccessFilter.General, 25);
+			List<DreamTermStatisticModel> dreams = await DreamTermsService.GetTopLikedDreamTermsByAccess(AccessFilter.General, 25);
 
 			// ASSERT
 			Assert.IsNotNull(dreams);

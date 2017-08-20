@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dreamlet.WebService", "dreamlet.WebService\dreamlet.WebService.csproj", "{F3B8C683-70D4-4BCD-86D5-616452DBD529}"
 EndProject
@@ -49,6 +49,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configs", "Configs", "{357E
 		dreamlet.Configs\settings-secret.config = dreamlet.Configs\settings-secret.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dreamlet.DbEntities", "dreamlet.DbEntities\dreamlet.DbEntities.csproj", "{0A14B78F-E34D-4E05-8F6C-52DF1203E086}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dreamlet.DbMigrations", "dreamlet.DbMigrations\dreamlet.DbMigrations.csproj", "{91772697-CFD0-4FB9-9BA0-4E44EB20B0EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B965CE97-9353-45C3-9257-1480F08BDA49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +97,14 @@ Global
 		{DB56D1DB-7ECF-4AE9-9ABD-8D54D5AEF660}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB56D1DB-7ECF-4AE9-9ABD-8D54D5AEF660}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB56D1DB-7ECF-4AE9-9ABD-8D54D5AEF660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A14B78F-E34D-4E05-8F6C-52DF1203E086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A14B78F-E34D-4E05-8F6C-52DF1203E086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A14B78F-E34D-4E05-8F6C-52DF1203E086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A14B78F-E34D-4E05-8F6C-52DF1203E086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91772697-CFD0-4FB9-9BA0-4E44EB20B0EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91772697-CFD0-4FB9-9BA0-4E44EB20B0EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91772697-CFD0-4FB9-9BA0-4E44EB20B0EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91772697-CFD0-4FB9-9BA0-4E44EB20B0EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,7 +118,9 @@ Global
 		{D1F4D119-E6E1-4D0A-821A-8254F9E98CFC} = {2124B888-380A-4C92-AC1B-023DD7A6D2DB}
 		{0A4C79B6-836F-4C88-9462-783CA8F767C1} = {375FF299-F2A2-46B0-BE58-26438D9FB428}
 		{8BC3381E-C749-49D2-8F46-20F4DF22B528} = {D22A3E15-F759-499A-B09B-C35F0B6B5905}
-		{DB56D1DB-7ECF-4AE9-9ABD-8D54D5AEF660} = {438E78BD-FC38-45D6-9E5C-A178642A6B06}
+		{DB56D1DB-7ECF-4AE9-9ABD-8D54D5AEF660} = {B965CE97-9353-45C3-9257-1480F08BDA49}
 		{357E6404-4DA0-40C8-8070-F9EA213BD6DC} = {F97DCA3C-9D19-48B0-A109-E2164EF28156}
+		{0A14B78F-E34D-4E05-8F6C-52DF1203E086} = {438E78BD-FC38-45D6-9E5C-A178642A6B06}
+		{91772697-CFD0-4FB9-9BA0-4E44EB20B0EA} = {438E78BD-FC38-45D6-9E5C-A178642A6B06}
 	EndGlobalSection
 EndGlobal
