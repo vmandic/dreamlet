@@ -62,12 +62,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbContext\DbCompiledModelFactory.cs" />
     <Compile Include="DbContext\DreamletDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\IRepositoryFactory.cs" />
     <Compile Include="Repository\Repository.cs" />
-    <Compile Include="Repository\RepositoryFactory.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>

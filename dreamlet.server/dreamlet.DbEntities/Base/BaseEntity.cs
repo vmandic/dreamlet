@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 
 namespace dreamlet.DbEntities.Base
@@ -26,15 +27,21 @@ namespace dreamlet.DbEntities.Base
 		public byte[] RowVersion { get; set; }
 	}
 
-	public class BaseEntityMapping<TEntity> : EntityTypeConfiguration<TEntity> where TEntity : class, IBaseEntity
+	public abstract class BaseEntityMapping<TEntity> : IModelMapping where TEntity : class, IBaseEntity
 	{
-		public BaseEntityMapping()
-		{
-			this.Property(x => x.Id).HasColumnOrder(1);
-			this.Property(x => x.Uid).HasColumnOrder(2);
-			this.Property(x => x.ActiveState).HasColumnOrder(3);
-			this.Property(x => x.CreatedAtUtc).HasColumnOrder(4);
-			this.Property(x => x.RowVersion).HasColumnOrder(5);
-		}
-	}
+    public virtual void Define(DbModelBuilder builder) => DefineBaseAndGetConfig(builder);
+
+    protected EntityTypeConfiguration<TEntity> DefineBaseAndGetConfig(DbModelBuilder builder)
+    {
+      var e = builder.Entity<TEntity>();
+
+      e.Property(x => x.Id).HasColumnOrder(1);
+      e.Property(x => x.Uid).HasColumnOrder(2);
+      e.Property(x => x.ActiveState).HasColumnOrder(3);
+      e.Property(x => x.CreatedAtUtc).HasColumnOrder(4);
+      e.Property(x => x.RowVersion).HasColumnOrder(5);
+
+      return e;
+    }
+  }
 }

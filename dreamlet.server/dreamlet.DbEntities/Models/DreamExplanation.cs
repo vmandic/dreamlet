@@ -1,5 +1,5 @@
 ﻿using dreamlet.DbEntities.Base;
-using System;
+using System.ComponentModel.Composition;
 
 namespace dreamlet.DbEntities.Models
 {
@@ -9,13 +9,8 @@ namespace dreamlet.DbEntities.Models
 		public int DreamTermId { get; set; }
 
 		public virtual DreamTerm DreamTerm { get; set; }
-	}
 
-	public class DreamExplanationMapping : BaseEntityMapping<DreamExplanation>
-	{
-		public DreamExplanationMapping() : base()
-		{
-			
-		}
-	}
+    [Export(typeof(IModelMapping))]
+    class Map : BaseEntityMapping<DreamExplanation> { }
+  }
 }

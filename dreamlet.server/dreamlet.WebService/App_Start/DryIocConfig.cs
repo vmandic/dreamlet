@@ -17,7 +17,7 @@ namespace dreamlet.WebService
 
 			IocBootstrapper.RegisterDependencies(container);
 
-			// Holds a global static singleton of the dependencies resolver.
+			// Holds a global static singleton of the dependencies resolver, no need to reference the System.Web DLL.
 			// Grants the ability to resolve dependencies in which ever assemby that references dreamlet.Composition.
 			DependencyResolverLocator.RegisterResolverOnce(config.DependencyResolver);
 		}

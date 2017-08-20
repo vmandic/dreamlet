@@ -1,5 +1,6 @@
 ﻿using dreamlet.DbEntities.Base;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 
 namespace dreamlet.DbEntities.Models
 {
@@ -13,13 +14,8 @@ namespace dreamlet.DbEntities.Models
 		public string InternationalCode { get; set; }
 
 		public virtual ICollection<DreamTerm> DreamTerms { get; set; }
-	}
 
-  public class LanguageMapping : BaseEntityMapping<Language>
-	{
-		public LanguageMapping() : base()
-		{
-
-		}
-	}
+    [Export(typeof(IModelMapping))]
+    class Map : BaseEntityMapping<Language> { }
+  }
 }

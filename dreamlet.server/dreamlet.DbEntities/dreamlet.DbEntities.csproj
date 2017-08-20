@@ -38,6 +38,7 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Base\BaseEntity.cs" />
     <Compile Include="Base\IBaseEntity.cs" />
+    <Compile Include="Base\IModelMapping.cs" />
     <Compile Include="Models\DreamExplanation.cs" />
     <Compile Include="Models\DreamTag.cs" />
     <Compile Include="Models\DreamTerm.cs" />

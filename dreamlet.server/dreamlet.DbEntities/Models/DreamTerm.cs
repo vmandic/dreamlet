@@ -1,6 +1,7 @@
 ﻿using dreamlet.DbEntities.Base;
-using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.Data.Entity;
 
 namespace dreamlet.DbEntities.Models
 {
@@ -18,13 +19,15 @@ namespace dreamlet.DbEntities.Models
 		public virtual DreamTermStatistic DreamTermStatistic { get; set; }
 		public virtual ICollection<DreamExplanation> DreamExplanations { get; set; }
 		public virtual ICollection<DreamTermTag> DreamTermTags { get; set; }
-	}
 
-  public class DreamTermMapping : BaseEntityMapping<DreamTerm>
-	{
-		public DreamTermMapping() : base()
-		{
-			this.HasOptional(x => x.DreamTermStatistic).WithRequired(dts => dts.DreamTerm);
-		}
-	}
+    [Export(typeof(IModelMapping))]
+    class Map : BaseEntityMapping<DreamTerm>, IModelMapping
+    {
+      public override void Define(DbModelBuilder builder)
+      {
+        var e = DefineBaseAndGetConfig(builder);
+        e.HasOptional(x => x.DreamTermStatistic).WithRequired(dts => dts.DreamTerm);
+      }
+    }
+  }
 }

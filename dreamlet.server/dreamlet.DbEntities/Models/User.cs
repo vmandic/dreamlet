@@ -1,5 +1,6 @@
 ﻿using dreamlet.DbEntities.Base;
 using dreamlet.Utilities;
+using System.ComponentModel.Composition;
 
 namespace dreamlet.DbEntities.Models
 {
@@ -8,13 +9,8 @@ namespace dreamlet.DbEntities.Models
 		public DreamletRole Role { get; set; }
 		public string Email { get; set; }
 		public string PasswordHash { get; set; }
-	}
 
-	public class UserMapping : BaseEntityMapping<User>
-	{
-		public UserMapping() : base()
-		{
-
-		}
-	}
+    [Export(typeof(IModelMapping))]
+    class Map : BaseEntityMapping<User> { }
+  }
 }

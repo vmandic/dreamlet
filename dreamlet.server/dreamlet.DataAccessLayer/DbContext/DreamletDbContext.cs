@@ -1,12 +1,12 @@
-﻿using dreamlet.DbEntities.Models;
-using DryIocAttributes;
+﻿using DryIocAttributes;
 using System.ComponentModel.Composition;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace dreamlet.DataAccessLayer.DbContext
 {
-	[Export, WebRequestReuse]
+  [Export, WebRequestReuse]
 	public class DreamletDbContext : System.Data.Entity.DbContext
 	{
 		private static object _locker = new object();
@@ -18,7 +18,7 @@ namespace dreamlet.DataAccessLayer.DbContext
 			Database.SetInitializer<DreamletDbContext>(null);
 		}
 
-		public DreamletDbContext()
+		public DreamletDbContext(DbCompiledModel model) : base(model)
 		{
 			this.Configuration.LazyLoadingEnabled = false;
 			this.Configuration.AutoDetectChangesEnabled = false;
@@ -26,22 +26,6 @@ namespace dreamlet.DataAccessLayer.DbContext
 
 			lock (_locker)
 				_identifier++;
-		}
-
-		protected override void OnModelCreating(DbModelBuilder mb)
-		{
-			mb.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-			mb.Conventions.Remove<PluralizingTableNameConvention>();
-			var configs = mb.Configurations;
-
-			// NOTE: add table mapping configs
-			configs.Add(new DreamExplanationMapping());
-			configs.Add(new DreamTagMapping());
-			configs.Add(new DreamTermMapping());
-			configs.Add(new DreamTermTagMapping());
-			configs.Add(new LanguageMapping());
-			configs.Add(new UserMapping());
-			configs.Add(new DreamTermStatisticMapping());
 		}
 	}
 }

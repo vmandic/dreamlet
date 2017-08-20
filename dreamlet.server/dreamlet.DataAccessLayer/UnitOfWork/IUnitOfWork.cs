@@ -5,7 +5,7 @@ namespace dreamlet.DataAccessLayer.UnitOfWork
 {
 	public interface IUnitOfWork
 	{
-		DreamletDbContext DreamletContext { get; set; }
+		DreamletDbContext Db { get; set; }
 
 		bool Commit();
 

@@ -1,5 +1,6 @@
 ﻿using dreamlet.DbEntities.Base;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 
 namespace dreamlet.DbEntities.Models
 {
@@ -12,13 +13,8 @@ namespace dreamlet.DbEntities.Models
 
 		public string Tag { get; set; }
 		public virtual ICollection<DreamTermTag> DreamTermTags { get; set; }
-	}
 
-  public class DreamTagMapping : BaseEntityMapping<DreamTag>
-	{
-		public DreamTagMapping() : base()
-		{
-
-		}
-	}
+    [Export(typeof(IModelMapping))]
+    class Map : BaseEntityMapping<DreamTag> { }
+  }
 }

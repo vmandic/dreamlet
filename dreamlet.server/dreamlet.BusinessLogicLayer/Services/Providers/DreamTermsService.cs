@@ -11,21 +11,24 @@ using System.Threading.Tasks;
 using System;
 using System.Linq.Expressions;
 using dreamlet.Utilities;
+using dreamlet.DataAccessLayer.Repository;
 
 namespace dreamlet.BusinessLogicLayer.Services.Providers
 {
   [Export(typeof(IDreamTermsService)), WebRequestReuse]
   public class DreamTermsService : BaseService, IDreamTermsService
   {
-    public DreamTermsService()
-    {
+    private IRepository<DreamTerm> _dreamTerms;
 
+    public DreamTermsService(IRepository<DreamTerm> dreamTerms)
+    {
+      _dreamTerms = dreamTerms;
     }
 
     public Task<List<DreamTermModel>> FindDreamTerms(string searchTerm, int howMany = 10)
       => (from st in searchTerm.ToLowerInvariant().Trim()
           let lowerSearchTerm = st.ToString()
-          select R<DreamTerm>()
+          select _dreamTerms
             .FilterActive(x => x.Term.ToLower().Trim().StartsWith(lowerSearchTerm))
             .OrderByDescending(x => x.Term)
             .Take(howMany)
@@ -37,35 +40,35 @@ namespace dreamlet.BusinessLogicLayer.Services.Providers
            ).FirstOrDefault();
 
     public Task<DreamTermWithExplanationsModel> GetDreamTerm(string termString)
-      => R<DreamTerm>()
-        .FilterActive(x => x.Term.ToLower().Trim() == termString.ToLower().Trim())
-        .Select(x => new DreamTermWithExplanationsModel
-        {
-          DreamTermId = x.Id,
-          Name = x.Term,
-          Explanations = x.DreamExplanations.Select(de => de.Explanation)
-        }).FirstOrDefaultAsync();
+      => _dreamTerms
+          .FilterActive(x => x.Term.ToLower().Trim() == termString.ToLower().Trim())
+          .Select(x => new DreamTermWithExplanationsModel
+          {
+            DreamTermId = x.Id,
+            Name = x.Term,
+            Explanations = x.DreamExplanations.Select(de => de.Explanation)
+          }).FirstOrDefaultAsync();
 
     public Task<DreamTermWithExplanationsModel> GetDreamTermById(int id)
-      => R<DreamTerm>()
-      .FilterActive(x => x.Id == id)
-      .Select(x => new DreamTermWithExplanationsModel
-      {
-        DreamTermId = x.Id,
-        Name = x.Term,
-        Explanations = x.DreamExplanations.Select(de => de.Explanation)
-      }).FirstOrDefaultAsync();
+      => _dreamTerms
+          .FilterActive(x => x.Id == id)
+          .Select(x => new DreamTermWithExplanationsModel
+          {
+            DreamTermId = x.Id,
+            Name = x.Term,
+            Explanations = x.DreamExplanations.Select(de => de.Explanation)
+          }).FirstOrDefaultAsync();
 
     public Task<List<DreamTermModel>> GetLetterGroupDreamTerms(char letter)
       => (from c in letter.ToString().ToLowerInvariant()
           let sLetter = c.ToString()
-          select R<DreamTerm>()
-            .FilterActive(x => x.Term.ToLower().StartsWith(sLetter))
-            .Select(x => new DreamTermModel
-            {
-              DreamTermId = x.Id,
-              Name = x.Term
-            }).ToListAsync()
+          select _dreamTerms
+                  .FilterActive(x => x.Term.ToLower().StartsWith(sLetter))
+                  .Select(x => new DreamTermModel
+                  {
+                    DreamTermId = x.Id,
+                    Name = x.Term
+                  }).ToListAsync()
         ).FirstOrDefault();
 
     public Task<List<DreamTermStatisticModel>> GetTopLikedDreamTermsByAccess(AccessFilter filterByAccess, int howMany = 50)
@@ -83,17 +86,17 @@ namespace dreamlet.BusinessLogicLayer.Services.Providers
           break;
       }
 
-      return R<DreamTerm>()
-          .FilterActive()
-          .OrderByDescending(orderBy)
-          .Take(howMany)
-          .Select(x => new DreamTermStatisticModel
-          {
-            DreamTermId = x.Id,
-            Name = x.Term,
-            LikeCount = x.DreamTermStatistic.LikeCount,
-            VisitCount = x.DreamTermStatistic.VisitCount
-          }).ToListAsync();
+      return _dreamTerms
+              .FilterActive()
+              .OrderByDescending(orderBy)
+              .Take(howMany)
+              .Select(x => new DreamTermStatisticModel
+              {
+                DreamTermId = x.Id,
+                Name = x.Term,
+                LikeCount = x.DreamTermStatistic.LikeCount,
+                VisitCount = x.DreamTermStatistic.VisitCount
+              }).ToListAsync();
     }
 
     public Task<List<DreamTermStatisticModel>> GetTopReadDreamTerms(int howMany = 50)
@@ -114,17 +117,17 @@ namespace dreamlet.BusinessLogicLayer.Services.Providers
           break;
       }
 
-      return R<DreamTerm>()
-          .FilterActive()
-          .OrderByDescending(orderBy)
-          .Take(howMany)
-          .Select(x => new DreamTermStatisticModel
-          {
-            DreamTermId = x.Id,
-            Name = x.Term,
-            LikeCount = x.DreamTermStatistic.LikeCount,
-            VisitCount = x.DreamTermStatistic.VisitCount
-          }).ToListAsync();
+      return _dreamTerms
+              .FilterActive()
+              .OrderByDescending(orderBy)
+              .Take(howMany)
+              .Select(x => new DreamTermStatisticModel
+              {
+                DreamTermId = x.Id,
+                Name = x.Term,
+                LikeCount = x.DreamTermStatistic.LikeCount,
+                VisitCount = x.DreamTermStatistic.VisitCount
+              }).ToListAsync();
     }
   }
 }

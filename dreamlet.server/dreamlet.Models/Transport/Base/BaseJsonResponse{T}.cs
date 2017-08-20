@@ -1,6 +1,4 @@
-﻿
-
-namespace dreamlet.Models.Transport.Base
+﻿namespace dreamlet.Models.Transport.Base
 {
 	public static class BaseJsonResponse
 	{

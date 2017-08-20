@@ -1,5 +1,4 @@
-﻿using dreamlet.DataAccessLayer.DbContext;
-using dreamlet.DbEntities.Base;
+﻿using dreamlet.DbEntities.Base;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -12,9 +11,9 @@ namespace dreamlet.DataAccessLayer.Repository
 	{
 		IDbSet<TEntity> Set { get; set; }
 
-		bool HasAny(Expression<Func<TEntity, bool>> predicate);
+		bool Any(Expression<Func<TEntity, bool>> predicate);
 
-		bool HasAll(Expression<Func<TEntity, bool>> predicate);
+		bool All(Expression<Func<TEntity, bool>> predicate);
 
 		/// <summary>
 		/// Adds the entity to the current graph context.
@@ -166,7 +165,7 @@ namespace dreamlet.DataAccessLayer.Repository
 		IQueryable<TEntity> FilterOrderedPageQueryable<OrderingType>(IQueryable<TEntity> query, Expression<Func<TEntity, OrderingType>> orderBy, out int total, int page = 1, int size = 24, bool isOrderedDescending = false, Expression<Func<TEntity, bool>> predicate = null);
 
 		Task<TEntity> FirstOrDefaultAndIncludeAsync(Expression<Func<TEntity, bool>> predicate, bool reload = false, params Expression<Func<TEntity, object>>[] includes);
-		Task<bool> HasAnyAsync(Expression<Func<TEntity, bool>> predicate);
+		Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
 		/// <summary>
 		/// Find object by specified expression async.
 		/// </summary>
